@@ -67,3 +67,7 @@ This computation was set as the color of the submodule, but that QR code submodu
 We proceed to paint the submodule inside the QR code image embedding using the luminance stored in the average black point matrix cell $bp(i, j)$ where i,j are the coordinates of the top left corner pixel where the sub-module of size $d_a \times d_a$ begins. Keep in mind that the mapped matrix only contains the average luminance for each pixel $f(i, j)$, so the coloring of the submodule is calculated as the RGB value of an HSV color space value, with the H and S being the hue and saturation of the pixel $f(i, j)$ in the original image, and the L value is the average stored in the mapped matrix for that pixel. The result of this coloring produces a QR code that works slower, but works.
 
 ![img]({{site.url}}/img/1/hsv.png)
+
+Then, if we change the size of the white noise from which we generate the blue noise mask, we get a smaller grained pattern, plus the average black point of luminance in the mapped matrix. It gives us the following QR code that works if you get a little closer.
+
+![img]({{site.url}}/img/1/hsv-300.png)
