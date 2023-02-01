@@ -64,12 +64,6 @@ Therefore, after we compute the overlay alpha module image and before applying t
 
 This computation was set as the color of the submodule, but that QR code submodule coloring did not work, because the average computed is not the color of the submodule, if anything, it was just the limit from which the decoder may be determining whether a module is dark or white. That computation will soon be removed. For the time being, that loop is used for this new threshold algorithm.
 
-We proceed to paint the submodule inside the QR code image embedding using the luminance stored in the average black point matrix cell $bp(i, j)$ where i,j are the coordinates of the top left corner pixel where the module of size $w_a \times w_a$ begins. Keep in mind that the mapped matrix only contains the average luminance for each pixel $f(i, j)$, so the coloring of the submodule is calculated as the RGB value of an HSV color space value, with the H and S being the hue and saturation of the pixel $f(i, j)$ in the original image, and the L value is the average stored in the mapped matrix for that pixel. The result of this coloring produces a QR code that works slower, but works.
+We proceed to paint the submodule inside the QR code image embedding using the luminance stored in the average black point matrix cell $bp(i, j)$ where i,j are the coordinates of the top left corner pixel where the sub-module of size $d_a \times d_a$ begins. Keep in mind that the mapped matrix only contains the average luminance for each pixel $f(i, j)$, so the coloring of the submodule is calculated as the RGB value of an HSV color space value, with the H and S being the hue and saturation of the pixel $f(i, j)$ in the original image, and the L value is the average stored in the mapped matrix for that pixel. The result of this coloring produces a QR code that works slower, but works.
 
 ![img]({{site.url}}/img/1/hsv.png)
-
-
-
-## To Do
-
-- Try coloring the submodule with the corresponding average to the pixel where the submodule starts, instead of the one where the module starts.
