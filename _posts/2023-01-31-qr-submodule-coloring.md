@@ -5,7 +5,7 @@ date:   2023-01-31 09:31:13 -0600
 categories: qr code embedding
 ---
 
-![img]({{site.url}}/img/1.png)
+![img]({{site.url}}/img/1/1.png)
 
 ZXing library (Zebra Crossing) can be seen as a dependency on the Android Open Source Project [[1]](https://github.com/zxing/zxing/blob/master/core/src/main/java/com/google/zxing/common/HybridBinarizer.java), and is used for the decoding of QR codes. If we go to analyze the algorithm that the library follows to decode a QR code, the first step is to binarize the image coming from a camera, and this is done using a 'dynamic' threshold based on the luminance of the image.
 
@@ -46,5 +46,22 @@ for i in N:
 
 The black point $bp$ is used now to calculate the **average black point** for each block using a 5x5 grid of the blocks around each block. This is the matrix of block averages that is used as thresholds for the binarization. The averages for the blocks tells us the limit from which a higher or lower value is binarized to be white or black. Thus, the averages are the limits of the color from which we need to base the color of the submodule. That is, the average of a block is the mid point from which a value is considered white or black.
 
-![img]({{site.url}}/img/2.png)
+![img]({{site.url}}/img/1/2.png)
 
+How may this $bp$ be applied to the QR embedding? The idea behind computing the thresholds/averages stored in $bp$ is that now we know above or below from what point will the color in a submodule be considered white or black, and thus the averages are now the limits from which to calculate the colors of the submodules.
+
+Coming back to the embedded image $f$, the dimensions are $h \times w$, and the $bp$ matrix has dimensions $N \times N$, where each average $bp_{i,j}$ is the average that corresponds to the 8x8 pixel block in the image located at $f(i+8, j+8)$. Using this, we can map the matrix to match the dimensions of the image $f$ and thus we can get the corresponding average of any pixel $f(i, j)$.
+
+Therefore, after we compute the overlay alpha module image and before applying the blue noise mask, we must paint the submodules of size $d_a \times d_a$ following the mapped $bp$ image. We did that in the same loop where the average of the colored image together with the submodules and alpha modules. That average, for the sake of documentation was performed by calculating a three-channel color in RGB color space by averaging each channel in the module. The result is the following.
+
+![img]({{site.url}}/img/1/l-rgb.png)
+
+This computation was set as the color of the submodule, but that QR code submodule coloring did not work, because the average computed is not the color of the submodule, if anything, it was just the limit from which the decoder may be determining whether a module is dark or white. That computation will soon be removed. For the time being, that loop is used for this new threshold algorithm.
+
+We proceed to paint the submodule inside the QR code image embedding using the luminance stored in the average black point matrix cell $bp(i, j)$ where i,j are the coordinates of the top left corner pixel where the module of size $w_a \times w_a$ begins. result of this coloring produces a QR code that works slower, but works.
+
+![img]({{site.url}}/img/1/hsv.png)
+
+## To Do
+
+- Try coloring the submodule with the corresponding average to the pixel where the submodule starts, instead of the one where the module starts.
