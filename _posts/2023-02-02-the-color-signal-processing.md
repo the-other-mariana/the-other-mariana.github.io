@@ -27,4 +27,18 @@ The **spectrum of a signal** refers to the distribution of its energy across dif
 
 > The spectrum can be obtained using techniques such as Fourier transform, short-time Fourier transform, or wavelet transform.
 
-Given that a frequency-domain graph displays **how much of the signal is present among each given frequency** band, then we can say that the **spectrum of a signal** can be represented as a **frequency domain graph of a signal**.
+Given that a frequency-domain graph displays **how much of the signal is present among each given frequency** band, then we can say that the **spectrum of a signal** can be represented as a **frequency domain graph of a signal**. We can generally say that **power density spectra = signal spectra**.
+
+## The Set P Of Physical Light Stimuli
+
+Any physical light (signal) power density spectrum can be written as the sum of two terms:
+
+1. One whose integrated spectrum is non-decreasing, continuous and bounded.
+
+2. One whose integrated spectrum is a non-decreasing step function with a finite number of steps.
+
+If $F(\lambda)$ is the integrated spectrum, then 
+
+$$
+F(\lambda) = \int_{\lambda_{min}}^{\lambda} f(\mu) d\mu
+$$
