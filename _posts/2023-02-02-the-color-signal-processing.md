@@ -26,3 +26,5 @@ It is possible, however, to convert the information from a time-domain to a freq
 The **spectrum of a signal** refers to the distribution of its energy across different frequency components. It provides information about the frequency content of the signal and can be represented as a **plot of the magnitude or power of the frequencies** present in the signal.
 
 > The spectrum can be obtained using techniques such as Fourier transform, short-time Fourier transform, or wavelet transform.
+
+Given that a frequency-domain graph displays **how much of the signal is present among each given frequency** band, then we can say that the **spectrum of a signal** can be represented as a **frequency domain graph of a signal**.
