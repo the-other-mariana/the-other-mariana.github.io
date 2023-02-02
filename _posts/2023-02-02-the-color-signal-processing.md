@@ -42,3 +42,41 @@ If $F(\lambda)$ is the integrated spectrum, then
 $$
 F(\lambda) = \int_{\lambda_{min}}^{\lambda} f(\mu) d\mu
 $$
+
+If we say f(\mu) is non-negative, then $F(\mu)$ is non-decreasing. 
+
+A **signal space** is a set of all functions $f$ such that $F(\mu)$ can be written as $F(\mu) = F_c(\mu) + F_d(\mu)$ where $F_c(\mu)$ is *absolutely continuous* and $F_d(\mu)$ is a step function with steps at a finite set of wavelengths $\mu_1, \mu_2, ..., \mu_k$.
+
+Two lights, with power spectral densities $f_1(\mu)$ and $f_2(\mu)$, that are superimposed, generate a resulting light ray whose power spectral density is $f_1(\mu) + f_2(\mu)$. Given this we can start to impose some algebraic structure on the set $P$ (set of power density spectra).
+
+### Theorem 2.1
+
+- ($P$, +) is a commutative semigroup with a neutral element (Abelian Monoid) in which every element is cancellable.
+
+	- A semigroup is a set equipped with a binary, associative operation. The associative operation is the superposition of light rays, equivalent to addition of power density spectra.
+
+- Thus we conclude that $f_1 + f_2 \in P$ so that $P$ is closed under the binary operation. This operation is also associative and commutative. The function $f(\lambda) = 0$ is the nuetral element. An element $f$ is cancellable if for all $f_1, f_2 \in P$:
+
+$$
+f + f_1 = f + f_2
+$$ 
+
+----
+
+It is not possible to express the difference between two spectra as elements of this space $P$. Thus, we extend $P$ by embedding it in a larger algebraic structure, space $A$, that contains it. $A$ consists of all the sums and differences of elements of $P$. Therefore, every element in $P$ has an additive inverse in $A$. A group is a semigroup with a neutral element such taht every element is invertible. The group $A$ is called the inverse completion of ($P$, +).
+
+### Theorem 2.2
+
+- The semigroup $P$ of physical light rays can be embedded in a unique, minimal commutative group $A$ such that every elementof $P$ has an inverse in $A$. Then, $A = P + P*$.
+
+----
+
+
+
+
+
+
+
+
+
+
