@@ -69,6 +69,7 @@ It is not possible to express the difference between two spectra as elements of 
 
 - The semigroup $P$ of physical light rays can be embedded in a unique, minimal commutative group $A$ such that every elementof $P$ has an inverse in $A$. Then, $A = P + P*$.
 
+----
 
 ## The Color Vector Space
 
@@ -87,24 +88,6 @@ The mathematical structure for color measurement is often referred to as **Grass
 Metamerism is a relation on the set $P$. The first property is **Transivity (G1)**:
 
 > If $C_1(\lambda) \triangle C_2(\lambda)$ and $C_2(\lambda) \triangle C_3(\lambda)$, then $C_1(\lambda) \triangle C_3(\lambda)$.
-
-
-
-
-
-
-
-
-
-
-
-
-
-----
-
-
-
-
 
 
 
