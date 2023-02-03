@@ -89,8 +89,10 @@ Metamerism is a relation on the set $P$. The first property is **Transivity (G1)
 
 > If $C_1(\lambda) \triangle C_2(\lambda)$ and $C_2(\lambda) \triangle C_3(\lambda)$, then $C_1(\lambda) \triangle C_3(\lambda)$.
 
+For any $C(\lambda) \in P$, we denote
 
+$$
+[C] = {C_1(\lambda) \in P | C_1(\lambda) \triangle C_1(\lambda)},
+$$
 
-
-
-
+the set of all spectral densities metamerically equivalent to $C(\lambda)$; this is an equivalence class. Metameric classes are a partition of $P$. Some of these classes may contain a single element of $P$, such as 0, while most will contain an infinite number of elements. We refer to $[C]$ as a **color**.
