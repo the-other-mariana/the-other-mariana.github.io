@@ -69,6 +69,37 @@ It is not possible to express the difference between two spectra as elements of 
 
 - The semigroup $P$ of physical light rays can be embedded in a unique, minimal commutative group $A$ such that every elementof $P$ has an inverse in $A$. Then, $A = P + P*$.
 
+
+## The Color Vector Space
+
+Different spectral densities can give rise to identical color sensations, based on the spectral sensitivity of the cone receptors in the human retina. If two spectral densities, $C_1(\lambda)$ and $C_2(\lambda)$, produce an **identical color sensation** for a human viewer under the same viewing conditions, they form a **metameric pair**. We denote this by
+
+$$
+C_1(\lambda) \triangle C_2(\lambda)
+$$
+
+This equation applies to the two spectral densities as a whole, and not to a particular wavelength: $C_1(\lambda) \triangle C_2(\lambda), C_1, C_2 \in P$. This condition of metamerism applies to a *specific human observer* and it may be very different for other seeing entities, such as robots, cameras, etc.
+
+The mathematical structure for color measurement is often referred to as **Grassmann's Laws**, labelled as G1, G2, etc.
+
+### Properties of Metamerism
+
+Metamerism is a relation on the set $P$. The first property is **Transivity (G1)**:
+
+> If $C_1(\lambda) \triangle C_2(\lambda)$ and $C_2(\lambda) \triangle C_3(\lambda)$, then $C_1(\lambda) \triangle C_3(\lambda)$.
+
+
+
+
+
+
+
+
+
+
+
+
+
 ----
 
 
