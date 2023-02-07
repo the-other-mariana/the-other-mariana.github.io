@@ -49,6 +49,8 @@ A **signal space** is a set of all functions $f$ such that $F(\mu)$ can be writt
 
 Two lights, with power spectral densities $f_1(\mu)$ and $f_2(\mu)$, that are superimposed, generate a resulting light ray whose power spectral density is $f_1(\mu) + f_2(\mu)$. Given this we can start to impose some algebraic structure on the set $P$ (set of power density spectra).
 
+----
+
 ### Theorem 2.1
 
 - ($P$, +) is a commutative semigroup with a neutral element (Abelian Monoid) in which every element is cancellable.
@@ -64,6 +66,8 @@ $$
 ----
 
 It is not possible to express the difference between two spectra as elements of this space $P$. Thus, we extend $P$ by embedding it in a larger algebraic structure, space $A$, that contains it. $A$ consists of all the sums and differences of elements of $P$. Therefore, every element in $P$ has an additive inverse in $A$. A group is a semigroup with a neutral element such taht every element is invertible. The group $A$ is called the inverse completion of ($P$, +).
+
+----
 
 ### Theorem 2.2
 
@@ -96,3 +100,7 @@ $$
 $$
 
 the set of all spectral densities metamerically equivalent to $C(\lambda)$; this is an equivalence class. Metameric classes are a partition of $P$. Some of these classes may contain a single element of $P$, such as 0, while most will contain an infinite number of elements. We refer to $[C]$ as a **color**.
+
+## References
+
+Dubois, E. (2010). The Structure and Properties of Color Spaces and the Representation of Color Images. Springer.

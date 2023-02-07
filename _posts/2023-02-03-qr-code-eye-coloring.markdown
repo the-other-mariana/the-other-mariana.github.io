@@ -15,7 +15,7 @@ Most algorithms analyzed in Karrach's article base the Finder Pattern detection 
 
 ![img]({{site.url}}/img/3/ratio.png)
 
-The existing QR code decoders require the symbol to be properly “framed”, that is, the symbol must correspond to at least 30% of the image area to be suitable for decoding.
+The existing QR code decoders require the symbol to be properly “framed”, that is, the symbol must correspond to at least 30% of the image area to be suitable for decoding. The pixels, where the brightness is lower than the threshold, are declared as 1 and the others are declared as 0.
 
 ### References
 
