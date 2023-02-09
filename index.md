@@ -8,6 +8,6 @@
 layout: home
 ---
 
-Hello, this is a blog mainatained by Mariana Ávalos Arce. For contact info, click on [About](https://the-other-mariana.github.io/about/).
+Hello, this is a blog maintained by Mariana Ávalos Arce. For contact info, click on [About](https://the-other-mariana.github.io/about/).
 
 ## Blog Posts
