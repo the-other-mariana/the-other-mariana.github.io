@@ -17,6 +17,22 @@ Most algorithms analyzed in Karrach's article base the Finder Pattern detection 
 
 The existing QR code decoders require the symbol to be properly “framed”, that is, the symbol must correspond to at least 30% of the image area to be suitable for decoding. The pixels, where the brightness is lower than the threshold, are declared as 1 and the others are declared as 0.
 
+## Concern
+
+We know the QR code eyes or finder patterns are one of the most important aspects for the camera detection, and therefore by having them clearly painted in the image we can almost guarantee a correct decoding of the code. However, we will try to camouflage them as much as possible to have the host image have more clarity. 
+
+The finder pattern detection works differently from the data modules detection. The basic idea behind the data modules detection was the **grid hypothesis** that the camera decoder performs: since it computes a sampling with a gaussian bell probability density, we could use the pixels outside the module center more freely. Now, the idea behind the finder pattern detection seems under a different principle: the camera groups finder pattern candidate pixels and tests if said candidate **is within an area with a 1:1:3:1:1 ratio**. Therefore, a *tone continuous* area must be found. It almost seems as if the hypothesis to be tested for finder patterns had a scope of the entire pattern area, whereas the hypothesis for data modules had a scope of the area of each module. The whole pattern area is then the section subject to a higher probability.
+
+![img]({{site.url}}/img/3/gauss.png)
+
+## Approach
+
+Following the idea of detecting such candidates inside an area of continuous tone matching a 1:1:3:1:1 ratio, we first lowered the tone of the QR pattern area by applying the data modules principle: the center of each module is painted with the dark or white relative to the mean color of the module. Then, since this was not detected due to the ideas explained, we painted each edge from the squares of the pattern with either absolute black or white. This seemed to be detected again.
+
+![img]({{site.url}}/img/3/1.png)
+
+We can conclude now that, for finder pattern areas, the **edges** of the base modules is key instead of the center, as opposed to the data module detection where the center was crucial.
+
 ### References
 
 (Karrach et al., 2020) Karrach, L., Pivarčiová, E., & Bozek, P. (2020). Recognition of perspective distorted QR codes with a partially damaged finder pattern in real scene images. Applied Sciences, 10(21), 7814.
