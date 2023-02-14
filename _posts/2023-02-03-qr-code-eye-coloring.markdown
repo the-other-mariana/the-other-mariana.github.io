@@ -31,7 +31,11 @@ Following the idea of detecting such candidates inside an area of continuous ton
 
 ![img]({{site.url}}/img/3/1.png)
 
-We can conclude now that, for finder pattern areas, the **edges** of the base modules is key instead of the center, as opposed to the data module detection where the center was crucial.
+We can conclude now that, for finder pattern areas, the **edges** of the base modules are key instead of the centers, as opposed to the data module detection where the centers were crucial.
+
+Taking this idea, we tried to simply draw each squared area inside the finder patterns with a lighter black (0.6 opacity) and white (0.7) opacity, and its edges in pure black and white. The edges are 25% of the module $w_a$ size. Surprisingly, it takes **more time** for a mobile camera to decode this, but it does if you stand still for a couple more seconds than usual.
+
+![img]({{site.url}}/img/3/2.png)
 
 ### References
 
