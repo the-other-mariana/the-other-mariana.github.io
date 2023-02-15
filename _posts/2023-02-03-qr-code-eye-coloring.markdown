@@ -37,6 +37,10 @@ Taking this idea, we tried to simply draw each squared area inside the finder pa
 
 ![img]({{site.url}}/img/3/2.png)
 
+It is a matter of color then. A continuous color that, together with its surroundings, gives the impression of one color, when in reality is another. This resembles to the concept of **metamerism**: when two colors are perceived as the same but have *different wavelengths*. Therefore, the next step is to make a plot of the overall wavelength of the color signal inside the eyes of the code, and search for another spectrum that gives the same impresion of the first color. Then, once that wavelength is found, we can transform it to its equivalent RGB color and paint the eyes with it. With this, we may have a color that gives out the impression of not that contrasting, but in numerical sense it would be useful for the camera to detect.
+
 ### References
 
 (Karrach et al., 2020) Karrach, L., Pivarčiová, E., & Bozek, P. (2020). Recognition of perspective distorted QR codes with a partially damaged finder pattern in real scene images. Applied Sciences, 10(21), 7814.
+
+- https://academo.org/demos/wavelength-to-colour-relationship/
