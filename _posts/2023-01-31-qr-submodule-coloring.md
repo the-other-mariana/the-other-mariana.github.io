@@ -44,7 +44,11 @@ for i in N:
         bp[i, j] = avg
 ```
 
-The black point $bp$ is used now to calculate the **average black point** for each block using a 5x5 grid of the blocks around each block. This is the matrix of block averages that is used as thresholds for the binarization. The averages for the blocks tells us the limit from which a higher or lower value is binarized to be white or black. Thus, the averages are the limits of the color from which we need to base the color of the submodule. That is, the average of a block is the mid point from which a value is considered white or black.
+The black point $bp$ is used now to calculate the **average black point** for each block using a 5x5 grid of the blocks around each block. We calculated the (corrected) average for each block and then it was averaged with a 5x5 block grid.
+
+![img]({{site.url}}/img/1/window.png)
+
+The resulting matrix is the matrix of block averages that is used as thresholds for the binarization. The averages for the blocks tells us the limit from which a higher or lower value is binarized to be white or black. Thus, the averages are the limits of the color from which we need to base the color of the submodule. That is, the average of a block is the mid point from which a value is considered white or black.
 
 ![img]({{site.url}}/img/1/2.png)
 
@@ -71,3 +75,4 @@ We proceed to paint the submodule inside the QR code image embedding using the l
 Then, if we change the size of the white noise from which we generate the blue noise mask, we get a smaller grained pattern, plus the average black point of luminance in the mapped matrix. It gives us the following QR code that works if you get a little closer.
 
 ![img]({{site.url}}/img/1/hsv-300.png)
+
