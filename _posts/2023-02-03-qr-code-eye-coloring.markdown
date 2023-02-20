@@ -3,6 +3,7 @@ layout: post
 title:  "QR Code Eye Coloring"
 date:   2023-02-03 11:25:12 -0600
 categories: qr code embedding
+last_modified_at:   2023-02-20 10:30:00 +0000
 ---
 Finder Patterns, which are located in the three corners of a QR Code, are important for determining the position and rotation of the QR Code. The size of the QR code is determined by the number of modules and can vary from 21 × 21 modules (Version 1) to 177 × 177 (Version 1). Each higher version number comprises four additional modules per side. QR Code has error correction capability to restore data if the code is partially damaged. 
 
