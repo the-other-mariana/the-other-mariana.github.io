@@ -3,7 +3,7 @@ layout: post
 title:  "QR Code Eye Coloring"
 date:   2023-02-03 11:25:12 -0600
 categories: qr code embedding
-modified_date:   2023-02-20 10:30:00 +0000
+modified_date:   2023-02-21 11:30:00 +0000
 ---
 Finder Patterns, which are located in the three corners of a QR Code, are important for determining the position and rotation of the QR Code. The size of the QR code is determined by the number of modules and can vary from 21 × 21 modules (Version 1) to 177 × 177 (Version 1). Each higher version number comprises four additional modules per side. QR Code has error correction capability to restore data if the code is partially damaged. 
 
@@ -54,6 +54,16 @@ Thus metamers can serve as substitutes for one another, and in most color-matchi
 It is possible to make changes in the intensity and wavelength of light without altering the effective photon flux. This concept is employed by RGB (Red, Green, Blue) displays to recreate realistic images using a spectral composition that is very different from that of the real world. This allows modulation of subconscious/reflex light responses amplitude without changing visual appearance.
 
 Two metameric color stimuli have spectral-power-distribution curves which, in general, intersect at three or more wavelengths within the visible spectrum (Ohta et al., 1977). One of these wavelengths is located in the short-wavelength region, one in the middle-wavelength region, and one in the longwavelength region. Recent work by Thornton puts these wavelengths at 448 $\pm$ 4 nm, 537 $\pm$ 3 nm, and 612 $\pm$ 8 nm, respectively. These regions correspond to the regions in which the “blue,” “green,” and “red” spectral-response functions of our visual system are respectively predominant. We will call the points of intersection the **nodes** of metameric color stimuli. In between the nodes there are the loops.
+
+## Iteration
+
+The last progress image was almost impossible to scan given different circumstances, and so the method was ditched. Another alternative that did not involve the usage of the finder pattern edges importance, but rather relies on the concept of the sub-window average luminance and average color was used to paint the totality of each of the three finder patterns. The resulting code is the following:
+
+![img]({{site.url}}/img/3/3.png)
+
+To get the color for each finder pattern, the first thing to do is to calculate the **average black point per region**, where the region is basically the 8x8 module area that constitutes the pattern (including the separation zone). This process basically computes the average of the $bp$ block matrix that was calculated for the whole image when we performed the coloring of the data modules. Then, we computed the **average RGB color** from the region of the pattern. The resulting RGB values are **transformed to the HSL color space**, in order to use the H and S values plus the region's average black point (L value) times $1 \pm factor$ to generate a **relative white and black colors**, where $factor$ was in this case 0.3. Thsi process was done for each of the three finder patterns. Now, the progress' last step is removed and instead this image is considered the next step. This was a more reliable QR code that could be scanned more normally, although requiring also a bit more time.
+
+![img]({{site.url}}/img/3/progress-fixed.png)
 
 ### References
 
