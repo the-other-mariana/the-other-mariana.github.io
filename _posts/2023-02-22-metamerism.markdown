@@ -22,6 +22,16 @@ I found a post in [Pete Shirley's Blog](http://psgraphics.blogspot.com/2015/03/t
 
 This is the same concept illustrated in my copy of *The Structure and Properties of Color Spaces and the Representation of Color Images* by Eric Dubois. This makes me think that exploring the idea of creating a metameric color that gives the illusion of it being not very constrasting to the QR image but being so in numerical terms, not so crazy.
 
+## Color Rendering of Spectra
+
+Following a post written by John Walker, once the spectrum of the light impinging upon a point in the image plane is known, the eye's perception of that spectrum must be determined. Finally, display arguments must be calculated which evoke that perception in the viewer.
+
+We define a spectrum as a function $P(\lambda)$ which gives, for any wavelength $\lambda$ in the human visual range of 380 through 780 nanometres (nm), the power emitted per small constant-width wavelength interval centred about $\lambda$, normally in units of watts per nm.
+
+The realtionship between the values X, Y and Z given a temperature and its corresponding R, G and B is represented by the following plot. This is for the color system known as CIE.
+
+![img]({{site.url}}/img/4/cie-3d.png)
+
 ### References
 
 (Allen et al., 2018) Allen, A. E., Hazelhoff, E. M., Martial, F. P., Cajochen, C., & Lucas, R. J. (2018). Exploiting metamerism to regulate the impact of a visual display on alertness and melatonin suppression independent of visual appearance. Sleep, 41(8), zsy100.
