@@ -80,10 +80,10 @@ If an output device **accepts CIE colour specifications directly** and transform
 
 | | Red | Green | Blue | White Point |
 | --- | --- | --- | --- | --- |
-| System | x | y | x | y | x | y |
-| NTSC | 0.67 |	0.33 | 0.21 | 0.71 | 0.14 | 0.08 | 0.3101 | 0.3162 |
-| EBU (PAL/SECAM) | 0.64 |	0.33 |	0.29 |	0.60 |	0.15 |	0.06 |	0.3127 |	0.3291
-| SMPTE | 0.630 |	0.340 |	0.310 |	0.595 |	0.155 |	0.070 |	0.3127 | 0.3291 |
+| System | x,y | x,y | x,y | x,y |
+| NTSC | 0.67,0.33 | 0.21,0.71 | 0.14,0.08 | 0.3101,0.3162 |
+| EBU (PAL/SECAM) | 0.64,0.33 |	0.29,0.60 |	0.15,0.06 |	0.3127,0.3291
+| SMPTE | 0.630,0.340 |	0.310,0.595 | 0.155,0.070 |	0.3127,0.3291 |
 
 The CIE Y component indicates the intensity of the light and the chromaticity coordinates x and y its colour in the CIE colour diagram. An RGB display mixes three primary colours, each of which is described by its CIE x and y (and implicitly z) coordinates. The three primaries define a triangle on the CIE diagram—any colour within it can be formed by mixing them. Table 1 lists the CIE x and y coordinates of the phosphors and reference white points of various broadcast systems. As noted in (Martindale and Paeth 1991), the NTSC primaries aren't remotely similar to those used in modern displays. Regrettably, the specifications of RGB monitors rarely include phosphor chromaticities, so unless you're prepared (and equipped) to calibrate the phosphors yourself, you're forced into choosing a “reasonable” set. Martindale and Paeth recommend calibrating to the SMPTE primaries, which are close to the EBU primaries used in PAL and SECAM broadcasting.
 
@@ -156,5 +156,9 @@ Now, if we want to plot the spectrum density of one of the colors gotten from a 
 (Cohen et al., 1982) Cohen, J. B., & Kappauf, W. E. (1982). Metameric color stimuli, fundamental metamers, and Wyszecki's metameric blacks. The American journal of psychology, 537-564.
 
 (Ohta et al., 1977) Ohta, N., & Wyszecki, G. (1977). Location of the nodes of metameric color stimuli.
+
+- https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
+
+- https://www.fourmilab.ch/documents/specrend/
 
 - https://academo.org/demos/wavelength-to-colour-relationship/
