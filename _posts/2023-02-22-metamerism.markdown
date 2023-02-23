@@ -30,7 +30,7 @@ We define a **spectrum** as a function $P(\lambda)$ which gives, for any wavelen
 
 Emission spectra of light sources and transmission, reflection, and absorption spectra of materials are usually determined empirically by spectrophotometry and specified in a table of measurements at wavelength intervals, normally 5 nm, throughout the visual range.
 
-The **CIE Color matching functions**, $\bar{x}(\lambda), \bar{y}(\lambda), \bar{z}(\lambda)$ represent the **relative contributions of light** with wavelength \lambda to the CIE tristimulus values X, Y and Z. The color matching functions were determined by measuring the mean color perception of a sample of human observers over the visual range from $\lambda_{violet} = 380$ to $\lambda_{red} = 780$ nm. To compute CIE X, Y and Z values for light with spectrum $P(\lambda)$ we **sum the products** of the **color matching function weights** at each wavelength (380 to 780 nm) and **the intensity emitted** at a constant narrow wavelength interval centered at that $\lambda$.
+The **CIE Color matching functions**, $\bar{x}(\lambda), \bar{y}(\lambda), \bar{z}(\lambda)$ represent the **relative contributions of light** with wavelength $\lambda$ to the CIE tristimulus values X, Y and Z. The color matching functions were determined by measuring the mean color perception of a sample of human observers over the visual range from $\lambda_{violet} = 380$ to $\lambda_{red} = 780$ nm. To compute CIE X, Y and Z values for light with spectrum $P(\lambda)$ we **sum the products** of the **color matching function weights** at each wavelength (380 to 780 nm) and **the intensity emitted** at a constant narrow wavelength interval centered at that $\lambda$.
 
 $$
 X = \delta \lambda \sum_{\lambda = \lambda_{red}}^{\lambda_{violet}} \bar{x_{\lambda}} \cdot P(\lambda),
@@ -44,7 +44,7 @@ $$
 Z = \delta \lambda \sum_{\lambda = \lambda_{red}}^{\lambda_{violet}} \bar{z_{\lambda}} \cdot P(\lambda).
 $$
 
-For most purposes sampling wavelength bands 5 or 10 nm apart is adequate, (CIE 1971) and (CIE 1986) provide color matching tables with 1 nm resolution. The table `cie_colour_match` in the program gives the CIE colour matching functions every 5 nm.
+For most purposes sampling wavelength bands 5 or 10 nm apart is adequate, (CIE 1971) and (CIE 1986) provide color matching tables with 1 nm resolution. The table `cieColorMatch` in the program gives the CIE colour matching functions every 5 nm.
 
 The CIE **Y** value is a measure of perceived luminosity of the light source. In rendering, we are usually interested in relative luminosities so we can ignore absolute values of Y and simply scale luminosities between min and max brightness. The X and Z components give the colour or chromaticity of the spectrum. Since the perceived colour depends (again, with the usual simplifications) only upon the relative magnitudes of X, Y, and Z, we define its chromaticity coordinates as:
 
@@ -144,6 +144,10 @@ If the requested colour is outside the gamut, the function `constrain_rgb` repla
 The realtionship between the values X, Y and Z given a temperature and its corresponding R, G and B is represented by the following plot. This is for the color system known as CIE.  
 
 ![img]({{site.url}}/img/4/cie-3d.png)
+
+Now, if we want to plot the spectrum density of one of the colors gotten from a single temperature, we need to add to the function that evaluates the first equation three arrays to store **each of the values accumulated to X, Y and Z** at each wavelength $\lambda$ in the visible range. Then, each X, Y anz Z arrays are plotted separately.
+
+![img]({{site.url}}/img/4/spectrum.png)
 
 ### References
 
