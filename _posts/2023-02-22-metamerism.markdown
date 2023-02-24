@@ -165,6 +165,12 @@ Finally, we correct the RGB to fit inside the RGB gamut triangle inside the CIE 
 
 ![img]({{site.url}}/img/4/eq3.png)
 
+## Side Note
+
+Pete Shirley's [post](http://psgraphics.blogspot.com/2014/11/converting-spectra-to-xyzrgb-values.html) talks additionally about how the color matching functions (defined in our array `cieColorMatch`) can be prone to typos, and therefore he co-wrote a paper where they approximated the functions so that they yield the numbers on the cie color matching table functions. This is another proof of The Art of Approximation introduced to me in the lands of Croatia by Dr. Bruno Klajn.
+
+![img]({{site.url}}/img/4/approximation.png)
+
 ### References
 
 (Allen et al., 2018) Allen, A. E., Hazelhoff, E. M., Martial, F. P., Cajochen, C., & Lucas, R. J. (2018). Exploiting metamerism to regulate the impact of a visual display on alertness and melatonin suppression independent of visual appearance. Sleep, 41(8), zsy100.
