@@ -145,7 +145,7 @@ The realtionship between the values X, Y and Z given a temperature and its corre
 
 ![img]({{site.url}}/img/4/cie-3d.png)
 
-Now, if we want to plot the spectrum density of one of the colors gotten from a single temperature, we need to add to the function that evaluates the first equation three arrays to store **each of the values accumulated to X, Y and Z** at each wavelength $\lambda$ in the visible range. Then, each X, Y anz Z arrays are plotted separately.
+Now, if we want to plot the spectrum density of one of the colors gotten from a single temperature, we need to add to the function that evaluates the first equation three arrays to store **each of the values accumulated to X, Y and Z** at each wavelength $\lambda$ in the visible range. Then, each X, Y and Z arrays are plotted separately.
 
 ![img]({{site.url}}/img/4/spectrum.png)
 
@@ -170,6 +170,8 @@ Finally, we correct the RGB to fit inside the RGB gamut triangle inside the CIE 
 Pete Shirley's [post](http://psgraphics.blogspot.com/2014/11/converting-spectra-to-xyzrgb-values.html) talks additionally about how the color matching functions (defined in our array `cieColorMatch`) can be prone to typos, and therefore he co-wrote a paper where they approximated the functions so that they yield the numbers on the cie color matching table functions. This is another proof of The Art of Approximation introduced to me in the lands of Croatia by Dr. Bruno Klajn.
 
 ![img]({{site.url}}/img/4/approximation.png)
+
+Maybe I need to code something to get the Temperature given the RGB, so that the X,Y and Z functions can be defined. Then the metameric color is computed to intersect the X,Y and Z three times. From that, we got the metameric X, Y and Z, from which we solve for J vector, getting the RGB of the metamer, correct it and display it.
 
 ### References
 
