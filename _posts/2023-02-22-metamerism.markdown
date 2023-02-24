@@ -149,6 +149,10 @@ Now, if we want to plot the spectrum density of one of the colors gotten from a 
 
 ![img]({{site.url}}/img/4/spectrum.png)
 
+Since the above plot was just for one of the temperatures, in order to analyse how the plot change as the RGB changes, we can store each of the X,Y and Z arrays for each of the temperatures we want, that is 19, in this case. The plot turns out as follows.
+
+![img]({{site.url}}/img/4/spectrums.png)
+
 ### References
 
 (Allen et al., 2018) Allen, A. E., Hazelhoff, E. M., Martial, F. P., Cajochen, C., & Lucas, R. J. (2018). Exploiting metamerism to regulate the impact of a visual display on alertness and melatonin suppression independent of visual appearance. Sleep, 41(8), zsy100.
