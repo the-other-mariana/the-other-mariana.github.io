@@ -119,6 +119,19 @@ The handling of colours unrepresentable on a given output device varies from app
 
 The spectral composition of many light sources is complicated and must be tabulated from photometric measurements. One useful family of light sources whose spectrum can be expressed as a simple function is the Planckian or black body radiators. **The spectrum emitted** by an ideal black body is determined entirely by its **temperature**; many natural and artificial light sources can be approximated by black body radiators of various temperatures.
 
+| Source | Temperature, K |
+| --- | --- |
+| Candle flame	| 1900 | 
+| Sunlight at sunset | 2000 |
+| Tungsten bulb—60 watt	| 2800 |
+| Tungsten bulb—200 watt | 2900 |
+| Tungsten/halogen lamp	| 3300 |
+| Carbon arc lamp | 3780 |
+| Sunlight plus skylight | 5500 |
+| Xenon strobe light | 6000 |
+| Overcast sky | 6500 |
+| North sky light | 7500 |
+
 For an ideal black body at temperature $T$ (Kelvins), the emittance at a given wavelength $\lambda$ (metres) is calculated by Planck's radiation law:
 
 $$
