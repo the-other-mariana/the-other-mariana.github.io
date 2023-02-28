@@ -3,7 +3,7 @@ layout: post
 title:  "Thoughts On Metamerism"
 date:   2023-02-22 10:00:12 -0600
 categories: qr code embedding
-modified_date:   2023-02-22 11:30:00 +0000
+modified_date:   2023-02-24 11:30:00 +0000
 ---
 
 **Metamers** are stimuli with **divergent spectral** power distributions that have **the same color** and luminance. Metamers achieve this effect because each of the human cone photoreceptors responds to the total light across a wide range of wavelengths, weighted according to their spectral sensitivity (Allen et al., 2018).
@@ -186,3 +186,5 @@ Maybe I need to code something to get the Temperature given the RGB, so that the
 - https://www.fourmilab.ch/documents/specrend/
 
 - https://academo.org/demos/wavelength-to-colour-relationship/
+
+- V formula (L inspired): http://psgraphics.blogspot.com/2014/08/rgb-luminance-revisited.html
