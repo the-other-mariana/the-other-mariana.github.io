@@ -33,6 +33,8 @@ The different constants used so far are:
 
         The `np.random.normal(loc, scale, size)` defines as `loc` the center of the distribution, around which the 68% of all randoms generated will fall into. We defined mean = 0 in the proof of concept program, and then all those numbers are generated in a range [-1, 1], **centered at mean = 0**. Then, the array gets moved to a domain of range [0, 1], meaning the center is now at **0.5 or 127 in a scale of 0 to 255**. From this, we can conclude that for the general program, and for any host image, the center or mean of the gaussian noise must be $\mu = 0$.
 
+        ![img]({{site.url}}/img/5/mean-tests.png)
+
     - Std dev = 0.5
 
 - Blue noise constants:
