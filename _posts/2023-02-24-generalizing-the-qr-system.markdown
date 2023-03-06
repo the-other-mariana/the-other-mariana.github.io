@@ -33,6 +33,8 @@ The different constants used so far are:
 
         The `np.random.normal(loc, scale, size)` defines as `loc` the center of the distribution, around which the 68% of all randoms generated will fall into. We defined mean = 0 in the proof of concept program, and then all those numbers are generated in a range [-1, 1], **centered at mean = 0**. Then, the array gets moved to a domain of range [0, 1], meaning the center is now at **0.5 or 127 in a scale of 0 to 255**. From this, we can conclude that for the general program, and for any host image, the center or mean of the gaussian noise must be $\mu = 0$.
 
+        The following image shows the results from shifting $\mu$ to values -0.5, 0 and 0.5, and keeping a standard deviation of $\sigma = 0.5$.
+
         ![img]({{site.url}}/img/5/mean-tests.png)
 
     - Std dev = 0.5. **Conclusion: always 0.5**
@@ -40,6 +42,10 @@ The different constants used so far are:
         The `np.random.normal(loc, scale, size)` defines as `scale` the standard deviation of the distribution, that is, the speard or width of the gaussian bell. The standard deviation is the square root of the variance, and thus we are eliminating the sign of the differences of the numbers in the dataset with the mean, because we only care about its distance to the center. The mayority of data is within the range of $[\mu - \sigma, \mu + \sigma]$. We say the mayority instead of a percentage because the exact percentage depends on the distribution that the data has. For example, if it was a normal distribution we would say that the 68% of data points are within the range mentioned.
 
         In the proof of concept program we used a standard deviation of $\sigma = 0.5$, and by following the function for the gaussian noise above, we can say that the 68% of the data points are 0.5 units from the center 0. With the first domain shift, this becomes 0.25 from the center at 0.5; with the second domain shift, this becomes 64 units from the center at 127. Thus, **68% of the data points lie in a range of [127-64, 127+64]**. Since this is the range of color in RGB (0 to 255), the $\sigma = 0.5$ for the gaussian noise must stay the same for all cases.
+
+        The following image shows the results from shifting $\sigma$ to values 0.25, 0.5 and 0.75, and keeping a mean of $\mu = 0$.
+
+        ![img]({{site.url}}/img/5/stdev-tests.png)
 
 - Blue noise constants:
 
