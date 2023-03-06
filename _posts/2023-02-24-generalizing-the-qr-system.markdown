@@ -12,11 +12,26 @@ The different constants used so far are:
 
 - Squared host image
 
-- Gets the maximum height and width from the two images (qr and host)
+- Uses QR image size and resizes host to it.
 
 - Guassian noise constants:
 
-    - Mean = 0 
+    - Mean = 0. **Conclusion: 0**
+
+        The function to create a gaussian noise image is:
+
+        ```python
+        def gaussian_noise_2d(mean, stdev, size):
+        gauss = np.random.normal(mean, stdev, (size[0], size[1]))
+        gauss = gauss.reshape(size[0],size[1])
+        # (-1,1) to (0,1)
+        gauss = 0.5 * (gauss + 1.0)
+        # (0,1) to (0, 255)
+        gauss = (gauss * 255).astype('uint8')
+        return gauss
+        ```
+
+        The `np.random.normal(loc, scale, size)` defines as `loc` the center of the distribution, around which the 68% of all randoms generated will fall into. We defined mean = 0 in the proof of concept program, and then all those numbers are generated in a range [-1, 1], **centered at mean = 0**. Then, the array gets moved to a domain of range [0, 1], meaning the center is now at **0.5 or 127 in a scale of 0 to 255**. From this, we can conclude that for the general program, and for any host image, the center or mean of the gaussian noise must be $\mu = 0$.
 
     - Std dev = 0.5
 
