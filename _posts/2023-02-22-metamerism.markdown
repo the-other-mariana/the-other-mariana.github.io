@@ -201,3 +201,5 @@ Maybe I need to code something to get the Temperature given the RGB, so that the
 - https://academo.org/demos/wavelength-to-colour-relationship/
 
 - V formula (L inspired): http://psgraphics.blogspot.com/2014/08/rgb-luminance-revisited.html
+
+- the color of a black body
