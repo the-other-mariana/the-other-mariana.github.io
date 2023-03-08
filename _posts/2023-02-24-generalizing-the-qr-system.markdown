@@ -47,7 +47,7 @@ The different constants used so far are:
 
         ![img]({{site.url}}/img/5/stdev-tests.png)
 
-        We see that in the first case the distance to the center (127) is the **smallest**, which means that the majority (68%) of the points are very near the gray with value 127. That's why we see **not so many variation in tones**, meaning there's not much contrast. For **larger** deviations or distances to the center, we see **more variation, more constrast**.
+        We see that in the first case the distance to the center (127) is the **smallest**, which means that the majority (68%) of the points are very near the gray with value 127. That's why we see **not so many variation in tones**, meaning there's not much contrast. For **larger** deviations or distances to the center, we see **more variation, more contrast**.
 
 - Blue noise constants:
 
