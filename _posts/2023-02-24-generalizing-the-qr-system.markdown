@@ -53,6 +53,23 @@ The different constants used so far are:
 
     - Iterations: 5
 
+    Blue noise is basically high frequency noise. To get the high frequency values of white noise, we blur the image and substract that image to the original. This can be done multiple times, and thus we defined a value for **iterations**. 
+
+    ```python
+    def blue_noise(iterations, sigma, inputImg):
+        for i in range(iterations):
+            # high pass filter: low pass filter it, subtstract that from the original image
+            high_pass = highpass(inputImg, sigma)
+            # normalize the histogram
+            norm = normalize_histogram(high_pass)
+            inputImg = norm
+        return inputImg
+    ```
+    
+    The more iterations, the blurrier the original image gets, and this in turn makes the substraction larger and larger, because a blurried image (almost gray) has larger differences to a sharp white noise. This generates the image below, where we can see that the more iterations, the more dense the noise pattern gets, as if the image slowly gets more similar to white noise (?).
+
+    ![img]({{site.url}}/img/5/iterations.png)
+
     - Sigma: 0.8
 
 - Overlay mask alpha: 0.2
