@@ -51,7 +51,7 @@ The different constants used so far are:
 
 - Blue noise constants:
 
-    - Iterations: 5
+    - Iterations: 5. **Conclusion: i = wa / 5**
 
     Blue noise is basically high frequency noise. To get the high frequency values of white noise, we blur the image and substract that image to the original. This can be done multiple times, and thus we defined a value for **iterations**. 
 
@@ -69,6 +69,10 @@ The different constants used so far are:
     The more iterations, the blurrier the original image gets, and this in turn makes the substraction larger and larger, because a blurried image (almost gray) has larger differences to a sharp white noise. This generates the image below, where we can see that the more iterations, the more dense the noise pattern gets, as if the image slowly gets more similar to white noise (?).
 
     ![img]({{site.url}}/img/5/iterations.png)
+
+    We will use a simple heuristic: $i = 5 \times \frac{w_a}{blocks}$, where $i$ is the iterations variable. Since the initial value is 5 iterations for a 29-block QR with each module being around 27 pixels, then this function will still output 5 for that case, and the iterations wouldnt increase that easily unless the blocks reach a large number. This can be seen below. 
+
+    ![img]({{site.url}}/img/5/it-func.png)
 
     - Sigma: 0.8
 
