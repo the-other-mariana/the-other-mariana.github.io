@@ -3,7 +3,7 @@ layout: post
 title:  "Generalizing The QR System"
 date:   2023-02-24 12:30:12 -0600
 categories: qr code embedding
-modified_date:   2023-03-06 13:30:00 +0000
+modified_date:   2023-03-13 13:30:00 +0000
 ---
 
 The Embedded QR code system so far has been outlined in terms of pipeline, but it always relies on the assumption that all images will behave as the lena image, which as a fact, is not true. So the next step is to generalize the system to work with any image.
@@ -51,7 +51,7 @@ The different constants used so far are:
 
 - Blue noise constants:
 
-    - Iterations: 5. **Conclusion: i = wa / 5**
+    - Iterations: 5. **Conclusion: i = 5*(wa / blocks)**
 
     Blue noise is basically high frequency noise. To get the high frequency values of white noise, we blur the image and substract that image to the original. This can be done multiple times, and thus we defined a value for **iterations**. 
 
@@ -74,9 +74,13 @@ The different constants used so far are:
 
     ![img]({{site.url}}/img/5/it-func.png)
 
-    - Sigma: 0.8
+    - Sigma: 0.8. **Conclusion: always 0.8**
 
-- Overlay mask alpha: 0.2
+    As we discussed in the standard deviation of the white noise pattern, the standard deviation maintains the contrast. In this case, this sigma is used for the gaussian blur, and thus defines the 'gray' levels for the blur effect. This can be kept as a constant.
+
+- Overlay mask alpha: 0.2. **Conclusion: always 0.2**
+
+This mask, although not mentioned much in the algorithm, is used to compute the average RGB tone so that with the computer sub-window averages we can modify (decrease or increase) the color of the $w_a \times w_a$ area. This might stay as a constant for now.
 
 - Factor to increase/decrease from average luminance + rgb: 0.3
 
