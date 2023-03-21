@@ -2,13 +2,17 @@
 layout: post
 title:  "Migrate To C++"
 date:   2023-03-21 09:30:00 -0600
-categories: qr code embedding
+categories: cmake
 modified_date:   2023-03-21 11:30:00 +0000
 ---
 
 ## Build a C++ OpenCV System with CMake
 
-Cmake is cross-platform, open-source build system for managing the build process of software using a compiler-independent method. In most cases it is used to generate project/make files - in your example it has produced `Makefile` which are used to build your software (mostly on Linux/Unix platform).
+Python was the language with which the embedded QR code system was prototyped, but it proved to be quite slow. Therefore, the system was migrated entirely to C++ and it worked like magic: it finished executing almost immediately. Some benchmarks on the comparison between the Python and C++ system will be posted soon.
+
+So, since now the system runs on C++, how do we manage all the custom libraries? With **CMake**, since it takes care of the build pipeline for all the dependency executables and links. Here are some of my notes regarding CMake with OpenCV and custom libraries.
+
+Cmake is cross-platform, open-source build system for managing the build process of software using a compiler-independent method. In most cases it is used to generate project/make files, hence it has produced `Makefile` which are used to build your software (mostly on Linux/Unix platform).
 
 Cmake allows to provide cross platform build files that would generate platform specific project/make files for particular compilation/platform.
 
