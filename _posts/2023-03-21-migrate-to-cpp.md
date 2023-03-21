@@ -1,9 +1,9 @@
 ---
 layout: post
 title:  "Migrate To C++"
-date:   2023-03-21 12:30:00 -0600
+date:   2023-03-21 09:30:00 -0600
 categories: qr code embedding
-modified_date:   2023-03-21 13:30:00 +0000
+modified_date:   2023-03-21 11:30:00 +0000
 ---
 
 ## Build a C++ OpenCV System with CMake
