@@ -44,7 +44,7 @@ project/
 ├─ main.cpp
 ```
 
-where `main.cpp` uses functions in `glib.cpp`. How do we compile both and tell CMake that one depends on another? First, there must be two `CMakeLists.txt`: one to compile the main and one for glib. The three should be:
+where `main.cpp` uses functions in `glib.cpp`. How do we compile both and tell CMake that one depends on another? First, there must be two `CMakeLists.txt`: one to compile the main and one for glib. The tree should be:
 
 ```
 project/
@@ -56,7 +56,7 @@ project/
 ├─ CMakeLists.txt
 ```
 
-The `CMakeLists.txt` should look like this:
+The `./CMakeLists.txt` should look like this:
 
 ```
 cmake_minimum_required(VERSION 2.8)
@@ -68,7 +68,7 @@ add_executable( main main.cpp )
 target_link_libraries( main ${OpenCV_LIBS} glib)
 ```
 
-where `add_subdirectory(glib)` includes a subdir to the build. The parameter specifies the directory in which the source `CMakeLists.txt` and code files are located. The command `target_link_libraries()` should contain a parameter which must have been created by a command `add_library()`, which is in the `CMakeLists.txt` file inside the `glib/` folder. This file looks like below:
+where `add_subdirectory(glib)` includes a subdir to the build. The parameter specifies the directory in which the source `CMakeLists.txt` and code files are located. The command `target_link_libraries()` should contain a parameter which must have been created by a command `add_library()`, which is in the `CMakeLists.txt` file inside the `glib/` folder. The file `./glib/CMakeLists.txt` looks like below:
 
 ```
 add_library(glib OBJECT
@@ -81,3 +81,51 @@ target_include_directories(glib
 ```
 
 The command `add_library(<target>)` adds a library called `<target>` to the build from the source files listed in the command. The name `<target>` is the logical target name and must be unique in a project. The command `target_include_directories(<target>)` specifies include directories to use when compiling a given target, and the name `<target>` must have been created by a command such as `add_executable()` or `add_library()`. 
+
+## C++ Server
+
+This system will create a QR and send it through an API, and therefore the API should be in a server. C++ is used for low-latency server, and we will find out what does that mean.
+
+**Sockets** let apps attach to the local networks at different **ports**.
+
+> A Web Socket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. 
+
+### Server Socket
+
+1. Create a socket: get the file descriptor.
+2. Bind to an address: set the port where you will be at.
+3. Listen on a port, and wait for a connection to be established.
+4. Accept the connection from a client.
+5. Serve (send or receive).
+6. Shutdown to end the serve method required.
+
+### Client Socket
+
+1. Create a socket.
+2. Bind*, this may be unnecessary, since we are not a server.
+3. Connect to a server.
+4. Request
+5. Shutdown.
+
+### IP Address
+
+As previously mentioned, the IP address is a unique address within a computer network that allows sending data to the intended receiver. They are not bound to a specific physical location but rather to a specific device. The IP defines the package structure by adding also the IP Header to the package.
+
+It’s a 32-bit number that uniquely identifies a host within a TCP/IP computer network. A host can be any device connected to the network such as a computer, a phone or a printer. The IP address is described in the dotted-decimal format: 192.168.123.32.
+
+The IP address has two parts:
+
+1. The network part representing the destination network of the data sent.
+2. The host part representing the destination host in the destination network.
+
+### Subnet Masks
+
+A router can use an additional 32-bit number to infer whether the destination host is part of the local subnet. This number is the **subnet mask**. It may look something like: 255.255.255.0. If we look at the binary version of the IP address and the subnet mask,
+
+> 11000000.10101000.01111011.10000100 (192.168.123.32)
+
+> 11111111.11111111.11111111.00000000 (255.255.255.0)
+
+The positions where the subnet mask is set to 1 tell us where the network part of the IP address is. Thus, they also tell us where the host part is, with all the positions where the subnet mask is 0.
+
+In a network, a package is sent to its destination thanks to routers.The router infers the network that the host is part of by considering the network part of the IP address. It uses its routing table to compute the best way to forward the package to its destination network. Once the destination network is reached, the local router sends the package to the host by reading the host part of the IP address.
