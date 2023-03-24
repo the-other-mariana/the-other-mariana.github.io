@@ -1,12 +1,12 @@
 ---
 layout: post
-title:  "Migrate To C++"
+title:  "Migrate OpenCV System To C++ (Server)"
 date:   2023-03-21 09:30:00 -0600
 categories: cmake
 modified_date:   2023-03-21 11:30:00 +0000
 ---
 
-## Build a C++ OpenCV System with CMake
+## Build a C++ OpenCV Server System with CMake
 
 Python was the language with which the embedded QR code system was prototyped, but it proved to be quite slow. Therefore, the system was migrated entirely to C++ and it worked like magic: it finished executing almost immediately. Some benchmarks on the comparison between the Python and C++ system will be posted soon.
 
@@ -191,7 +191,7 @@ if (s < 0){
 }
 ```
 
-and add the `serve()` functions:
+and add the `serve()` function:
 
 ```c++
 int serve(Mat image, Mat qr, Mat qrColor){
@@ -273,3 +273,4 @@ creates the response string that will be sent back, which includes some headers 
 
 Now the server is ready to locally return the output image to a client connected to the same network and that sends a GET request to its socket.
 
+![img]({{site.url}}/img/6/sc01.png)
