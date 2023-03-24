@@ -114,7 +114,7 @@ c++/
 ├─ CMakeLists.txt
 ```
 
-The folder `c++/writer/` contains the algorithm, which is used by main. Therefore, the `writer.cpp` must include the header files for the libraries: `glib.h`, `colorsys.h`, `light.h`, `noise.h` and `writer`, since it contains the main image processing algorithm. Then, main includes the header `writer.h` to get access to said algorithm. 
+The folder `c++/writer/` contains the algorithm, which is used by main. Therefore, the `writer.cpp` must include the header files for the libraries: `glib.h`, `colorsys.h`, `light.h`, `noise.h`, since it contains the main image processing algorithm. Then, main includes the header `writer.h` to get access to said algorithm. 
 
 To include a bunch of libraries in one file (writer) and then use it as another dependency inside main, the CMake files were a bit modified:
 
