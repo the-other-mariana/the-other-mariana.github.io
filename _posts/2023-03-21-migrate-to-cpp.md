@@ -175,24 +175,7 @@ This system will create a QR and send it through an API, and therefore the API s
 
 **Sockets** let apps attach to the local networks at different **ports**.
 
-> A Web Socket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. 
-
-### Server Socket
-
-1. Create a socket: get the file descriptor.
-2. Bind to an address: set the port where you will be at.
-3. Listen on a port, and wait for a connection to be established.
-4. Accept the connection from a client.
-5. Serve (send or receive).
-6. Shutdown to end the serve method required.
-
-### Client Socket
-
-1. Create a socket.
-2. Bind*, this may be unnecessary, since we are not a server.
-3. Connect to a server.
-4. Request
-5. Shutdown.
+> A web Socket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. 
 
 ### IP Address
 
