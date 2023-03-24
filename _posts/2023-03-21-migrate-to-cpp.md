@@ -82,6 +82,93 @@ target_include_directories(glib
 
 The command `add_library(<target>)` adds a library called `<target>` to the build from the source files listed in the command. The name `<target>` is the logical target name and must be unique in a project. The command `target_include_directories(<target>)` specifies include directories to use when compiling a given target, and the name `<target>` must have been created by a command such as `add_executable()` or `add_library()`. 
 
+So far, the folder tree looks as follows:
+
+```
+c++/
+├─ glib/
+|   ├─ glib.h
+|   ├─ glib.cpp
+|   ├─ CMakeLists.txt
+├─ colorsys/
+|   ├─ colorsys.h
+|   ├─ colorsys.cpp
+|   ├─ CMakeLists.txt
+├─ light/
+|   ├─ light.h
+|   ├─ light.cpp
+|   ├─ CMakeLists.txt
+├─ noise/
+|   ├─ noise.h
+|   ├─ noise.cpp
+|   ├─ CMakeLists.txt
+├─ utils/
+|   ├─ utils.h
+|   ├─ utils.cpp
+|   ├─ CMakeLists.txt
+├─ writer/
+|   ├─ writer.h
+|   ├─ writer.cpp
+|   ├─ CMakeLists.txt
+├─ main.cpp
+├─ CMakeLists.txt
+```
+
+The folder `c++/writer/` contains the algorithm, which is used by main. Therefore, the `writer.cpp` must include the header files for the libraries: `glib.h`, `colorsys.h`, `light.h`, `noise.h` and `writer`, since it contains the main image processing algorithm. Then, main includes the header `writer.h` to get access to said algorithm. 
+
+To include a bunch of libraries in one file (writer) and then use it as another dependency inside main, the CMake files were a bit modified:
+
+- `c++/CMakeLists.txt`:
+
+```
+cmake_minimum_required(VERSION 2.8)
+project( main )
+find_package( OpenCV REQUIRED )
+include_directories( ${OpenCV_INCLUDE_DIRS} )
+add_subdirectory(glib)
+add_subdirectory(utils)
+add_subdirectory(noise)
+add_subdirectory(light)
+add_subdirectory(colorsys)
+add_subdirectory(writer)
+add_executable( main main.cpp )
+target_link_libraries( main ${OpenCV_LIBS} glib utils noise light colorsys writer)
+```
+
+- `c++/writer/CMakeLists.txt`:
+
+```
+add_library(writer OBJECT
+    writer.cpp
+    writer.h
+)
+target_include_directories(writer
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../writer
+)
+
+target_include_directories(writer PUBLIC "../glib/" "../utils/" "../light/" "../colorsys/")
+```
+
+- All the end libs CMakes (noise, light, utils, etc) that are only used by `writer.cpp`, maintain the same structure:
+
+```
+add_library(noise OBJECT
+    noise.cpp
+    noise.h
+)
+target_include_directories(noise
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/../noise
+)
+```
+
+Then, everything is compiled and executed as:
+
+```
+cmake .
+make
+./main
+```
+
 ## C++ Server
 
 This system will create a QR and send it through an API, and therefore the API should be in a server. C++ is used for low-latency server, and we will find out what does that mean.
