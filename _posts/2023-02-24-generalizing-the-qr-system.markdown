@@ -115,7 +115,7 @@ The calculation of the average luminosity and standard deviation, the image is c
 
 After performing a Gamma correction on the Train image, the new average is over 100, and the code results quite scannable:
 
-![img]({{site.url}}/img/5/gamma-corrected.png)
+![img]({{site.url}}/img/5/gamma-corr-underexp.png)
 
 The gamma correction factor is 0.4. Gamma correction can be used to correct the brightness of an image by using a non linear transformation between the input and output values:
 
