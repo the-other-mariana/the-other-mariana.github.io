@@ -86,6 +86,35 @@ This mask, although not mentioned much in the algorithm, is used to compute the 
 
 - $\beta$, $\alpha$, $\beta_{c}$ and $\alpha_c$. These are for the non-center module pixels.
 
+## System Fixes
+
+The first major bug I have just bumped into is the fact that the python system outputs the following (look at the modules):
+
+![img]({{site.url}}/img/5/monkey-python.png)
+
+while the C++ system seems to differ and actually seems to be far from the corresponding average tone:
+
+![img]({{site.url}}/img/5/monkey-bug.png)
+
+
 ## References
 
+- https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
+
+- https://www.fourmilab.ch/documents/specrend/
+
 - Video processing idea: https://mathematica.stackexchange.com/questions/60292/how-to-build-a-bvh-a-motion-capture-file-format-player-in-mathematica/60942#60942
+
+- user: https://mathematica.stackexchange.com/users/57/sjoerd-c-de-vries
+
+- equalize: https://stackoverflow.com/questions/15007304/histogram-equalization-not-working-on-color-image-opencv
+
+- gamma: https://docs.opencv.org/3.4/d3/dc1/tutorial_basic_linear_transform.html
+
+- color quantization: https://en.wikipedia.org/wiki/Color_quantization
+
+- color classification: https://stackoverflow.com/questions/11411889/color-classification-with-k-means-in-opencv/
+
+- detect underexposed image opencv c++
+
+- https://stackoverflow.com/questions/11562048/how-can-i-find-a-good-image-on-the-base-of-a-histogram

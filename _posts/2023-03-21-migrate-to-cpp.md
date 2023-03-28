@@ -344,3 +344,7 @@ creates the response string that will be sent back, which includes some headers 
 Now the server is ready to locally return the output image to a client connected to the same network and that sends a GET request to its socket.
 
 ![img]({{site.url}}/img/6/sc01.png)
+
+### References
+
+- https://lenngro.github.io/how-to/2021/01/05/Simple-TCPIP-Server-Cpp/

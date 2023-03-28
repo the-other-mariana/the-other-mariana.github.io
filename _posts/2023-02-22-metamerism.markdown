@@ -186,6 +186,20 @@ Pete Shirley's [post](http://psgraphics.blogspot.com/2014/11/converting-spectra-
 
 Maybe I need to code something to get the Temperature given the RGB, so that the X,Y and Z functions can be defined. Then the metameric color is computed to intersect the X,Y and Z three times. From that, we got the metameric X, Y and Z, from which we solve for J vector, getting the RGB of the metamer, correct it and display it.
 
+## Update
+
+It seems that with the code evaluating the temperatures from 1000K to 10001K by a step of 500K cannot output all colors in the RGB color space.
+
+The color gamut that you get from a range of temperatures depends on the color temperature to RGB conversion formula used. However, in general, it is difficult to obtain a pure green gamut using the Planck radiation law because green is not a dominant color in the visible spectrum emitted by a blackbody at any temperature.
+
+That being said, we can try adjusting the temperature range and step size to see if you can obtain a more green gamut. We can also try using different color temperature to RGB conversion formulas to see if they give you a better result. Some ideas:
+
+- Try using a narrower temperature range that is centered around the temperature range where green is most prominent in the visible spectrum. This range is typically between 5000K and 7000K.
+
+- Use a smaller step size between temperatures to obtain more colors in the range. A step size of 100 or 50 may give you more colors to work with.
+
+- Experiment with different color temperature to RGB conversion formulas. There are many formulas available, and some may give you better results for a green gamut. For example, you can try the sRGB or Adobe RGB color spaces, or use a more recent standard such as Rec. 2020.
+
 ### References
 
 (Allen et al., 2018) Allen, A. E., Hazelhoff, E. M., Martial, F. P., Cajochen, C., & Lucas, R. J. (2018). Exploiting metamerism to regulate the impact of a visual display on alertness and melatonin suppression independent of visual appearance. Sleep, 41(8), zsy100.
