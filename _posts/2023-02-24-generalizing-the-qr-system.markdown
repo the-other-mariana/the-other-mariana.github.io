@@ -88,6 +88,8 @@ This mask, although not mentioned much in the algorithm, is used to compute the 
 
 ## System Fixes
 
+### Python / C++ Issues
+
 The first major bug I have just bumped into is the fact that the python system outputs the following (look at the modules):
 
 ![img]({{site.url}}/img/5/monkey-python.png)
@@ -96,6 +98,38 @@ while the C++ system seems to differ and actually seems to be far from the corre
 
 ![img]({{site.url}}/img/5/monkey-bug.png)
 
+Then, try to optimize the HSV conversions, maybe store a global variable with the HSV image to stop calling the function over and over.
+
+### Image Processing for Ideal Input
+
+The calculation of the average luminosity and standard deviation, the image is converted to HSV color space and then the average and devaition is computed on the V channel.
+
+| Image | Average | Stdev |
+| --- | --- | --- |
+| Lena | 180.40 | 48.94 |
+| Monkey | 157.4 | 55.45 |
+| Train | 49.36 | 78.65 |
+| Train (gamma corr) | 103.72 | 65.14 |
+| Overexposed | 247.21 | 14.69 |
+| Overexposed (gamma corr) | 208.24 | 69.97 |
+
+After performing a Gamma correction on the Train image, the new average is over 100, and the code results quite scannable:
+
+![img]({{site.url}}/img/5/gamma-corrected.png)
+
+The gamma correction factor is 0.4. Gamma correction can be used to correct the brightness of an image by using a non linear transformation between the input and output values:
+
+$$
+O = (\frac{I}{255})^{\gamma} \times 255
+$$
+
+![img]({{site.url}}/img/5/gamma-func.png)
+
+When $\gamma \lt 1$, the dark regions will be brighter and the histogram is shifted to the right.
+
+The opposite case can also be corrected with gamma function. A 2.5 gamma value is used to go from the left to right image.
+
+![img]({{site.url}}/img/5/gamma-corr-overexp.png)
 
 ## References
 
