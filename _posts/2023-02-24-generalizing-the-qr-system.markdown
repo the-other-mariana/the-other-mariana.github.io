@@ -88,9 +88,9 @@ This mask, although not mentioned much in the algorithm, is used to compute the 
 
 ## System Fixes
 
-### Python / C++ Issues
+### General Issues
 
-The first major bug I have just bumped into is the fact that the python system outputs the following (look at the modules):
+- [x] The first major bug I have just bumped into is the fact that the python system outputs the following (look at the modules):
 
 ![img]({{site.url}}/img/5/monkey-python.png)
 
@@ -98,7 +98,13 @@ while the C++ system seems to differ and actually seems to be far from the corre
 
 ![img]({{site.url}}/img/5/monkey-bug.png)
 
-Then, try to optimize the HSV conversions, maybe store a global variable with the HSV image to stop calling the function over and over.
+Update: it seems fixed now. The problem was that the RGB input for the modules were taking coordinates (j, i) instead of (i, j). Human error. They look similar in tone now (look at the mdoules only):
+
+![img]({{site.url}}/img/5/modules-color-fixed.png)
+
+- [ ] Figure out what length of url is ideal, so that finder pattern colors are not needed, since they slow down decoding.
+
+- [ ] Then, try to optimize the HSV conversions, maybe store a global variable with the HSV image to stop calling the function over and over.
 
 ### Image Processing for Ideal Input
 
