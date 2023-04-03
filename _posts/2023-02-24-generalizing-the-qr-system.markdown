@@ -108,7 +108,7 @@ Update: it seems fixed now. The problem was that the RGB input for the modules w
 
 ### Image Processing for Ideal Input
 
-The calculation of the average luminosity and standard deviation, the image is converted to HSV color space and then the average and devaition is computed on the V channel.
+For the calculation of the average luminosity and standard deviation, the image is converted to HSV color space and then the average and deviation is computed on the V channel.
 
 | Image | Average | Stdev |
 | --- | --- | --- |
@@ -133,7 +133,7 @@ $$
 
 When $\gamma \lt 1$, the dark regions will be brighter and the histogram is shifted to the right.
 
-The opposite case can also be corrected with gamma function. A 2.5 gamma value is used to go from the left to right image.
+The opposite case can also be corrected with gamma function. A 10 gamma value is used to go from the left to right image.
 
 ![img]({{site.url}}/img/5/gamma-corr-overexp.png)
 
