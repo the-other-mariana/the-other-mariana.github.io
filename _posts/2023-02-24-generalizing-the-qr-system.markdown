@@ -140,12 +140,14 @@ The opposite case can also be corrected with gamma function. A 10 gamma value is
 Therefore, the question is how to calculate the proper gamma value given any image, either underexposed, overexposed, or even a logo? [Here](https://stackoverflow.com/questions/61695773/how-to-set-the-best-value-for-gamma-correction) is a discussion where they propose to do it based on the **mean** color in the image (which seems the most obvious) using the function:
 
 $$
-\gamma(x) = \frac{log(127)}{log(x)}
+\gamma(\mu) = \frac{log(127)}{log(\mu)}
 $$
 
-where $x$ is the mean color mentioned. Such model is visualized as:
+where $\mu$ is the mean color mentioned. Such model is visualized as:
 
 ![img]({{site.url}}/img/5/plot-discussion.png)
+
+Gives an idea on how to start, but this plot gives out smaller numbers of gamma the larger the mean is; this means that the clearer the image is, the smaller the gamma is. But, as we saw in the two extreme cases above, the function should go in the opposite direction: the brighter the image is (large mean), the bigger the gamma results are. Additional patterns were found: if an image has a mean in the range $100 \leq \mu \leq 200$, then there should be no processing ($\gamma = 1$), but values smaller than 100 should **ascend** from a range $0 \leq \gamma < 1$, and values greater than 200 should also ascend but quicker in a range of $1 <\gamma \leq 25$. Something along this sketch:
 
 
 
