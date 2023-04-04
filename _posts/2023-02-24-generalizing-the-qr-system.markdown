@@ -137,6 +137,18 @@ The opposite case can also be corrected with gamma function. A 10 gamma value is
 
 ![img]({{site.url}}/img/5/gamma-corr-overexp.png)
 
+Therefore, the question is how to calculate the proper gamma value given any image, either underexposed, overexposed, or even a logo? [Here](https://stackoverflow.com/questions/61695773/how-to-set-the-best-value-for-gamma-correction) is a discussion where they propose to do it based on the **mean** color in the image (which seems the most obvious) using the function:
+
+$$
+\gamma(x) = \frac{log(127)}{log(x)}
+$$
+
+where $x$ is the mean color mentioned. Such model is visualized as:
+
+![img]({{site.url}}/img/5/plot-discussion.png)
+
+
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
