@@ -157,6 +157,17 @@ For the first part, we can get an approximation with an exponential function.
 
 ![img]({{site.url}}/img/5/exp-test.png)
 
+The function that fulfills the cases was found to be approxiamtely:
+
+$$
+y(\mu) = 
+\begin{dcases}
+\frac{\mu^2}{10000} & 0 \leq \mu < 100 \\
+1 & 100 \leq \mu \leq 200 \\
+3e\log\left(\mu-200\right)+4e & 200 < \mu \leq 255
+\end{dcases}
+$$
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
