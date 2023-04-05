@@ -153,6 +153,10 @@ Gives an idea on how to start, but this plot gives out smaller numbers of gamma 
 
 We therefore need 2 functions: one to get the gamma value when the mean is $\mu < 100$ or underexposed, and the other one to get the gamma value when the mean is $\mu > 200$ or overexposed. The middle case is when the image has a mean $100 \leq \mu \leq 200$, in which case the gamma value is 1 (no correction).
 
+For the first part, we can get an approximation with an exponential function.
+
+![img]({{site.url}}/img/5/exp-test.png)
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
