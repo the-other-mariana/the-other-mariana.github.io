@@ -168,6 +168,8 @@ y(\mu) =
 \end{dcases}
 $$
 
+![img]({{site.url}}/img/5/idea-functions.png)
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
