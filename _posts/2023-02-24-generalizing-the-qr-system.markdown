@@ -161,11 +161,11 @@ The function that fulfills the cases was found to be approxiamtely:
 
 $$
 y(\mu) = 
-\begin{dcases}
+\begin{cases}
 \frac{\mu^2}{10000} & 0 \leq \mu < 100 \\
 1 & 100 \leq \mu \leq 200 \\
 3e\log\left(\mu-200\right)+4e & 200 < \mu \leq 255
-\end{dcases}
+\end{cases}
 $$
 
 ![img]({{site.url}}/img/5/idea-functions.png)
