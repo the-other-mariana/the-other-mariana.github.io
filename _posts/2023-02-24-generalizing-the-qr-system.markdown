@@ -174,6 +174,10 @@ The first and third equations are plotted below. For the third one it was diffic
 
 **Important: `log` in this case refers to logarithm base 10**.
 
+Update: the underexposed values were too close to zero most of the cases, so the function was shifted by 25%, which meant that it hits the point (0, 0.25) and its limit is (100, 1.0005).
+
+![img]({{site.url}}/img/5/new-first-func.png)
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
