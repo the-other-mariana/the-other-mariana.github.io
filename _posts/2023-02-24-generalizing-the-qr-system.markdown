@@ -178,6 +178,17 @@ Update: the underexposed values were too close to zero most of the cases, so the
 
 ![img]({{site.url}}/img/5/new-first-func.png)
 
+Therefore, the gamma factor is given by this function:
+
+$$
+y(\mu) = 
+\begin{cases}
+\frac{\mu^2}{13325}+\frac{1}{4} & 0 \leq \mu < 100 \\
+1 & 100 \leq \mu \leq 200 \\
+3e\log\left(\mu-200\right)+4e & 200 < \mu \leq 255
+\end{cases}
+$$
+
 ## References
 
 - https://mathematica.stackexchange.com/questions/57389/convert-spectral-distribution-to-rgb-color
