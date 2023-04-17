@@ -173,177 +173,79 @@ make
 
 This system will create a QR and send it through an API, and therefore the API should be in a server. C++ is used for low-latency server, and we will find out what does that mean.
 
-**Sockets** let apps attach to the local networks at different **ports**.
+### Postman Request
 
-> A web Socket is a computer communications protocol, providing full-duplex communication channels over a single TCP connection. 
+The client from which we will send the request is Postman local app. 
 
-### IP Address
+CURL code for the request:
 
-As previously mentioned, the IP address is a unique address within a computer network that allows sending data to the intended receiver. They are not bound to a specific physical location but rather to a specific device. The IP defines the package structure by adding also the IP Header to the package.
-
-It’s a 32-bit number that uniquely identifies a host within a TCP/IP computer network. A host can be any device connected to the network such as a computer, a phone or a printer. The IP address is described in the dotted-decimal format: 192.168.123.32.
-
-The IP address has two parts:
-
-1. The network part representing the destination network of the data sent.
-2. The host part representing the destination host in the destination network.
-
-### Subnet Masks
-
-A router can use an additional 32-bit number to infer whether the destination host is part of the local subnet. This number is the **subnet mask**. It may look something like: 255.255.255.0. If we look at the binary version of the IP address and the subnet mask,
-
-> 11000000.10101000.01111011.10000100 (192.168.123.32)
-
-> 11111111.11111111.11111111.00000000 (255.255.255.0)
-
-The positions where the subnet mask is set to 1 tell us where the network part of the IP address is. Thus, they also tell us where the host part is, with all the positions where the subnet mask is 0.
-
-In a network, a package is sent to its destination thanks to routers.The router infers the network that the host is part of by considering the network part of the IP address. It uses its routing table to compute the best way to forward the package to its destination network. Once the destination network is reached, the local router sends the package to the host by reading the host part of the IP address.
-
-Routers and switches rely on sbunet masks to route data packets to its destinations. A package presents its IP address, and for any router in the network, the IP address will be processed with binary operations using the subnet mask. These operations allow the router to see the IP host address of the packet's destination, and with it the router knows to which subnet it should send the package.
-
-### C++ Server
-
-- **Sockets** are the endpoints that receive data within a network.Server sockets communicate with client sockets.
-
-```c++
-// create the socket
-int listening = socket(AF_INET, SOCK_STREAM, 0);
-if (listening == -1)
-{
-  std::cerr << "Can't create a socket!";
-  return -1;
-}
+```
+curl --location --request POST 'http://localhost:8080/' \
+--header 'Content-Type: multipart/form-data' \
+--form 'image=@"/home/mariana/Documents/github/wispok/hidden-qr-img/c++/input/lenna.png"' \
+--form 'qr=@"/home/mariana/Documents/github/wispok/hidden-qr-img/c++/input/qr1.png"'
 ```
 
-`AF_INET` and `SOCK_STREAM` are constants that represent the IPv4 address family and a TPC connection, respectively. Then, we need to **bind** the socket, which is telling the socket to wich address and port it should connect. For that, we need a socket address object called **hint**, and set the IP address family, the port and the IP address:
+The request is configured as follows in Postman GUI:
 
-```c++
-// binding
-struct sockaddr_in hint;
-hint.sin_family = AF_INET;
-hint.sin_port = htons(54000);
-inet_pton(AF_INET, "0.0.0.0", &hint.sin_addr);
+![img]({{site.url}}/img/6/req-address.png)
+
+Then on the tabs:
+
+- **Params**: NA.
+
+- **Authorization**: `No Auth`.
+
+- **Headers**: 
+
+    - KEY: `Content-type`, VALUE: `multipart/form-data`.
+
+        ![img]({{site.url}}/img/6/req-headers.png)
+
+- **Body**: Check the bullet `form-data` and enter the following:
+
+    - KEY: `image`, VALUE: a PNG file, i. e. `lenna.png`.
+
+    - KEY: `qr`, VALUE: a PNG file, i. e. `qr1.png`.
+
+        ![img]({{site.url}}/img/6/req-body.png)
+
+- **Pre-request Script**: NA.
+
+- **Tests**: NA.
+
+- **Settings**: left as default.
+
+    ![img]({{site.url}}/img/6/req-settings.png)
+
+Click on Send and the image will appear as the body of the response:
+
+![img]({{site.url}}/img/6/req-response.png)
+
+The raw response is:
+
 ```
-
-The "0.0.0.0" IP address is not a specification, but it lets the server decide on which address it's going to listen to client connections. The function `htons()` transalte the interger port into a network byte order number.
-
-```c++
-// binding
-if (bind(listening, (struct sockaddr *)&hint, sizeof(hint)) == -1) 
-{
-    std::cerr << "Can't bind to IP/port";
-    return -2;
-}
+POST http://localhost:8080/
+200
+147 ms
+Network
+Request Headers
+Content-Type: multipart/form-data; boundary=--------------------------266367698870191813465759
+User-Agent: PostmanRuntime/7.29.2
+Accept: */*
+Postman-Token: f41cc5f7-2853-48d2-b9de-8838481b4a82
+Host: localhost:8080
+Accept-Encoding: gzip, deflate, br
+Connection: keep-alive
+Content-Length: 479545
+Request Body
+Response Headers
+Content-Length: 973655
+Content-Type: image/png
+Keep-Alive: timeout=5, max=5
+Response Body
+The console does not support viewing bodies with media files.
 ```
-
-By having the socket bind to an IP address and port, we can now tell it to listen to incoming connections:
-
-```c++
-// listen
-if (listen(listening, SOMAXCONN) == -1)
-{
-  std::cerr << "Can't listen !";
-  return -3;
-}
-```
-
-The constant `SOMAXCONN` defines the maximum number of incoming connections: it is a system-defined value that represents the maximum number of connections allowed to be queued for the socket. In most modern operating systems, `SOMAXCONN` is typically set to a high value, such as 128 or 512, which means that the server can handle that many simultaneous connections in the queue. 
-
-This server, however, needs to listen to connections forever, not just once. So we need to modify the main function:
-
-```c++
-int s = serve(image, qr, qrColor);
-if (s < 0){
-  printf("[ERROR] Server could not serve.\n");
-} else {
-  printf("[SUCCESS] Server listening.\n");
-}
-```
-
-and add the `serve()` function:
-
-```c++
-int serve(Mat image, Mat qr, Mat qrColor){
-    // create the socket code
-
-    // binding the socket codes
-
-    // socket listening code
-
-    char buf[4096];
-    while (true) {
-        sockaddr_in client;
-        socklen_t clientSize = sizeof(client);
-
-        int clientSocket = accept(listening, (sockaddr*)&client, &clientSize);
-
-        if (clientSocket == -1) {
-            cerr << "Problem with client connection\n";
-            continue;
-        }
-
-        memset(buf, 0, 4096);
-        int bytesReceived = recv(clientSocket, buf, 4096, 0);
-        if (bytesReceived == -1) {
-            cerr << "Error in recv(). Quitting\n";
-            break;
-        }
-
-        if (bytesReceived == 0) {
-            cerr << "Client disconnected\n";
-            break;
-        }
-
-        cout << string(buf, 0, bytesReceived) << endl;
-
-        // return an image (output of the algorithm)
-        // Convert image to PNG format
-        Mat out = Writer::generateQR(image, qr, qrColor);
-        vector<uchar> buffer;
-        imencode(".png", out, buffer);
-        string imageString(buffer.begin(), buffer.end());
-
-        // Construct HTTP response
-        ostringstream oss;
-        oss << "HTTP/1.1 200 OK\r\n";
-        oss << "Content-Type: image/png\r\n";
-        oss << "Content-Length: " << imageString.size() << "\r\n";
-        oss << "\r\n";
-        oss << imageString;
-
-        string httpResponse = oss.str();
-
-        // Send HTTP response
-        send(clientSocket, httpResponse.c_str(), httpResponse.size() + 1, 0);
-
-        close(clientSocket);
-    }
-
-    close(listening);
-    return 0;
-}
-```
-
-The code snippet:
-
-```c++
-// Construct HTTP response
-std::ostringstream oss;
-oss << "HTTP/1.1 200 OK\r\n";
-oss << "Content-Type: image/png\r\n";
-oss << "Content-Length: " << imageString.size() << "\r\n";
-oss << "\r\n";
-oss << imageString;
-```
-
-creates the response string that will be sent back, which includes some headers with the extension and length of the image string. `imageString` object was done using `imencode` and `imageString` functions.
-
-- The function `imencode` compresses the image and stores it in the memory buffer that is resized to fit the result. It converts (encodes) image formats into streaming data and stores it in-memory cache or RAM instead of disk. It is mostly used to compress image data formats in order to make network transfer easier. It creates an array of bytes ordered in a sequence defined by the format. Each format (PNG, JPG, etc) has its own serialization conventions. It also contains some meta-data related to that image format, ex: compression level, etc. along with pixel data.
-
-Now the server is ready to locally return the output image to a client connected to the same network and that sends a GET request to its socket.
-
-![img]({{site.url}}/img/6/sc01.png)
 
 ### References
 

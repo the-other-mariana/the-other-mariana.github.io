@@ -214,3 +214,11 @@ $$
 - https://codereview.stackexchange.com/questions/284179/proper-implementation-of-signal-handler-and-multithreading-pthread
 
 - the best gamma correction: https://stackoverflow.com/questions/61695773/how-to-set-the-best-value-for-gamma-correction
+
+- https://stackoverflow.com/questions/61695773/how-to-set-the-best-value-for-gamma-correction
+
+- user: https://stackoverflow.com/users/7355741/fmw42
+
+- user: http://www.fmwconcepts.com/fmw/fmw.html
+
+- metamerism: http://simonstechblog.blogspot.com/
