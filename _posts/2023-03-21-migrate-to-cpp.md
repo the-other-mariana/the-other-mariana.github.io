@@ -247,6 +247,12 @@ Response Body
 The console does not support viewing bodies with media files.
 ```
 
+You can replace the "localhost" string in the request url with the IP address. Everytime you change networks, you can find out your IP:
+
+```
+hostname -I
+```
+
 ### References
 
 - https://lenngro.github.io/how-to/2021/01/05/Simple-TCPIP-Server-Cpp/
