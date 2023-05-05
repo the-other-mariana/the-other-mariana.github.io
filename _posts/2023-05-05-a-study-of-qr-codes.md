@@ -48,3 +48,6 @@ For this purpose, I performed a study of how the QR code's data module size chan
 
 ![img]({{site.url}}/img/7/qr-study_high.png)
 
+What was done for the plots began with creating 40-80-image batches with Endroid's PHP QR code library by adding 1 letter to the url per iteration in a for loop. This library allows you to input the url to encode, the image size in pixels and the error correction level, and the library will fit a QR to the image size you provided. Then, in Python I coded a little computer vision routine to determine the size of the modules in all these images. This involved the Probabilistic Hough Transform to store all vertical line candidates and measuring the minimum distance found among them. This distance was in fact the size of the QR modules. 
+
+With all this information, I created a csv file for each correction level (Low and High) where the url, its length, the size of the module, the block count and the image size. These two csv files were used for the above plots.
