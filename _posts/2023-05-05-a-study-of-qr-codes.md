@@ -1,12 +1,14 @@
 ---
 layout: post
-title:  "Migrate OpenCV System To C++ (Server)"
+title:  "A Study of QR Codes"
 date:   2023-05-05 12:15:00 -0600
 categories: cmake
 modified_date:   2023-05-05 12:20:00 +0000
 ---
 
 # A Study of QR Codes
+
+## What do we  know?
 
 The QR code's purpose is to embed information into a 2D barcode, and it encodes not only the information you provide but also extra information that aids in a process known as **error correction**. This extra information is included in a QR code so that the code can still be decoded even when an area has been damaged. The size of this *forgettable* area is determined by the **error correction level** parameter. The article by Karrach et al., titled *Recognition of Perspective Distorted QR Codes with a Partially Damaged Finder Pattern in Real Scene Images* states:
 
