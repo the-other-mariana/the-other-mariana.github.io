@@ -29,6 +29,10 @@ The **spectrum of a signal** refers to the distribution of its energy across dif
 
 Given that a frequency-domain graph displays **how much of the signal is present among each given frequency** band, then we can say that the **spectrum of a signal** can be represented as a **frequency domain graph of a signal**. We can generally say that **power density spectra = signal spectra**.
 
+Using FFT analysis, numerous signal characteristics can be investigated to a much greater extent than when inspecting the time domain data. In the frequency domain, the signal characteristics are described by independent frequency components, wherein the time domain it is described by one waveform, containing the sum of all characteristics.
+
+![img]({{site.url}}/img/2/fft-diagram.png)
+
 ## The Set P Of Physical Light Stimuli
 
 Any physical light (signal) power density spectrum can be written as the sum of two terms:
@@ -100,6 +104,7 @@ $$
 $$
 
 the set of all spectral densities metamerically equivalent to $C(\lambda)$; this is an equivalence class. Metameric classes are a partition of $P$. Some of these classes may contain a single element of $P$, such as 0, while most will contain an infinite number of elements. We refer to $[C]$ as a **color**.
+
 
 ## References
 
