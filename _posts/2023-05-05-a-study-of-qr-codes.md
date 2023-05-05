@@ -10,15 +10,7 @@ modified_date:   2023-05-05 12:20:00 +0000
 
 The QR code's purpose is to embed information into a 2D barcode, and it encodes not only the information you provide but also extra information that aids in a process known as **error correction**. This extra information is included in a QR code so that the code can still be decoded even when an area has been damaged. The size of this *forgettable* area is determined by the **error correction level** parameter. The article by Karrach et al., titled *Recognition of Perspective Distorted QR Codes with a Partially Damaged Finder Pattern in Real Scene Images* states:
 
-> QR Code has error correction capability to restore data if the code is partially damaged. Four error
-QR Code has error correction capability to restore data if the code is partially damaged. Four
-correction levels are available (L–Low, M–Medium, Q–Quartile, and H–High). The error correction
-error correction levels are available (L–Low, M–Medium, Q–Quartile, and H–High). The error
-level determines how much of the QR Code can be corrupted to keep the data still recoverable (L–7%,
-correction level determines how much of the QR Code can be corrupted to keep the data still
-M–15%, Q–25%, and H–30%) [5]. The QR Code error correction feature is implemented by adding
-recoverable (L–7%, M–15%, Q–25%, and H–30%) [5]. The QR Code error correction feature is
-a Reed–Solomon Code to the original data.
+> QR Code has error correction capability to restore data if the code is partially damaged. Four correction levels are available (L–Low, M–Medium, Q–Quartile, and H–High). The error level determines how much of the QR Code can be corrupted to keep the data still recoverable (L–7%, M–15%, Q–25%, and H–30%) [5]. The QR Code error correction feature is implemented by adding a Reed–Solomon Code to the original data.
 
 Then, it also mentions a parameter known as the **version of the QR code**. This parameter is encoded specifically in ortogonal bands connecting the finder patterns, so that decoder systems know which error should they expect. Coming back to the article, it mentions:
 
