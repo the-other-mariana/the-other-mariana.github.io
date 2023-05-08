@@ -44,10 +44,16 @@ For this purpose, I performed a study of how the QR code's data module size chan
 
 ![img]({{site.url}}/img/7/qr-study_low.png)
 
+- For QR codes with **Medium error correction level**:
+
+![img]({{site.url}}/img/7/qr-study_mid.png)
+
 - For QR codes with **High error correction level**:
 
 ![img]({{site.url}}/img/7/qr-study_high.png)
 
-What was done for the plots began with creating 40-80-image batches with Endroid's PHP QR code library by adding 1 letter to the url per iteration in a for loop. This library allows you to input the url to encode, the image size in pixels and the error correction level, and the library will fit a QR to the image size you provided. Then, in Python I coded a little computer vision routine to determine the size of the modules in all these images. This involved the Probabilistic Hough Transform to store all vertical line candidates and measuring the minimum distance found among them. This distance was in fact the size of the QR modules. 
+What was done for the plots began with creating 40/70/80-image batches with Endroid's PHP QR code library by adding 1 letter to the url per iteration in a for loop. This library allows you to input the **url to encode**, the **image size** in pixels and the **error correction level**, and the library will fit a QR to the image size you provided. Most python libraries do not let you just input the full image size, but they ask you to specify the **module size**. Since the purpose of this study is to see how the size of the modules changes with the URL length, then these libs would not be useful as we would have to set the size of the modules. 
 
-With all this information, I created a csv file for each correction level (Low and High) where the url, its length, the size of the module, the block count and the image size. These two csv files were used for the above plots.
+Then, in Python I coded a little computer vision routine to determine the size of the modules in all these images. This involved the Probabilistic Hough Transform to store all vertical line candidates and measuring the minimum distance found among them. This distance was in fact the size of the QR modules. 
+
+With all this information, I created a csv file for each correction level (Low, Medium, and High) where the **url**, its **length**, the **size of the resulting module**, the **block count** and the **image size** were stored. These three csv files were used for the above plots.
