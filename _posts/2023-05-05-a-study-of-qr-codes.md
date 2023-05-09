@@ -60,3 +60,14 @@ With all this information, I created a csv file for each correction level (Low, 
 
 ## Analysis
 
+QR decoding tests proved that those QR codes that have **module size <= 23 pixels** failed to be detected in around 50% of the cases. Therefore, the accepted **module size must be 24 or higher**. 
+
+By looking at the plots above, the conclusion is the following:
+
+A QR code will be scanned successfully if its URL length is
+
+| URL Length | URL Example | Error Correction Level | Module Size | Image Size | 
+| --- | --- | --- | --- | --- |
+| 25 - 31 | https://pokme.wispok.mx/x - https://pokme.wispok.mx/xxxxxxx | Low | 31, 26 | 900 |
+| 25 - 40 | https://pokme.wispok.mx/x - https://pokme.wispok.mx/xxxxxxxxxxxxxxxx | Medium | 26 | 900 |
+
