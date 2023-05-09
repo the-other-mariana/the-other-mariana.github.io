@@ -46,7 +46,7 @@ For this purpose, I performed a study of how the QR code's data module size chan
 
 - For QR codes with **Medium error correction level**:
 
-![img]({{site.url}}/img/7/qr-study_mid.png)
+![img]({{site.url}}/img/7/qr-study_medium.png)
 
 - For QR codes with **High error correction level**:
 
@@ -57,3 +57,6 @@ What was done for the plots began with creating 40/70/80-image batches with Endr
 Then, in Python I coded a little computer vision routine to determine the size of the modules in all these images. This involved the Probabilistic Hough Transform to store all vertical line candidates and measuring the minimum distance found among them. This distance was in fact the size of the QR modules. 
 
 With all this information, I created a csv file for each correction level (Low, Medium, and High) where the **url**, its **length**, the **size of the resulting module**, the **block count** and the **image size** were stored. These three csv files were used for the above plots.
+
+## Analysis
+
