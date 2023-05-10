@@ -71,3 +71,5 @@ A QR code will be scanned successfully if its URL length is
 | 25 - 31 | https://pokme.wispok.mx/x - https://pokme.wispok.mx/xxxxxxx | Low | 31, 26 | 900 |
 | 25 - 40 | https://pokme.wispok.mx/x - https://pokme.wispok.mx/xxxxxxxxxxxxxxxx | Medium | 26 | 900 |
 
+
+Since the error correction level increases the chances of decoding a QR code successfully the higher it is, then the suggested error correction should be **Medium**.
