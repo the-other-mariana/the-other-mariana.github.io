@@ -208,7 +208,7 @@ The choice of the specific values, such as [0.0], [0.841], [0.909], and so on in
 
 Padding Mask: The input vector of the sequences is supposed to be fixed in length. Hence, a max_length parameter defines the maximum length of a sequence that the transformer can accept. All the sequences that are greater in length than max_length are truncated while shorter sequences are padded with zeros. The zero-paddings, however, are not supposed to contribute to the attention calculation nor in the target sequence generation. Thus, the need for masks.
 
-![img](./res/1.png)
+![img]({{site.url}}/img/9/1.png)
 
 - MatMul: dot product 
 
@@ -246,7 +246,7 @@ For Regularization, a **dropout** is applied to the output of each sub-layer bef
 
 The architecture of a Transformer is now complete:
 
-![img](./res/3.png)
+![img]({{site.url}}/img/9/3.png)
 
 The Encoder is the part in the left and Decoder is on the right.
 
