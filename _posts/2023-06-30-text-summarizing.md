@@ -208,6 +208,20 @@ The choice of the specific values, such as [0.0], [0.841], [0.909], and so on in
 
 Padding Mask: The input vector of the sequences is supposed to be fixed in length. Hence, a max_length parameter defines the maximum length of a sequence that the transformer can accept. All the sequences that are greater in length than max_length are truncated while shorter sequences are padded with zeros. The zero-paddings, however, are not supposed to contribute to the attention calculation nor in the target sequence generation. Thus, the need for masks.
 
+To prevent the model from attending to the padding tokens and considering them as meaningful input, a padding mask is applied. The padding mask is a binary mask with the same shape as the input sequence, where the padded positions are marked with 0s and the non-padded positions are marked with 1s.
+
+Example:
+
+- Sequence 1: [10, 24, 16, 8, 0]
+- Sequence 2: [6, 14, 0, 0, 0]
+
+And its padding mask would be:
+
+- Padding Mask 1: [1, 1, 1, 1, 0]
+- Padding Mask 2: [1, 1, 0, 0, 0]
+
+The mask gets multiplied by the input vectors and in this way the zero values mean no influence in the model's computation or attention mechanisms.
+
 ![img]({{site.url}}/img/9/1.png)
 
 - MatMul: dot product 
@@ -257,3 +271,5 @@ The Encoder is the part in the left and Decoder is on the right.
 - https://medium.com/swlh/abstractive-text-summarization-using-transformers-3e774cc42453
 
 - https://blog.jaysinha.me/train-your-first-neural-network-with-attention-for-abstractive-summarisation/
+
+- https://towardsdatascience.com/transformers-explained-65454c0f3fa7
