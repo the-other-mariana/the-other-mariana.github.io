@@ -206,7 +206,7 @@ The choice of the specific values, such as [0.0], [0.841], [0.909], and so on in
 
 ---
 
-Padding Mask: The input vector of the sequences is supposed to be fixed in length. Hence, a max_length parameter defines the maximum length of a sequence that the transformer can accept. All the sequences that are greater in length than max_length are truncated while shorter sequences are padded with zeros. The zero-paddings, however, are not supposed to contribute to the attention calculation nor in the target sequence generation. Thus, the need for masks.
+**Padding Mask**: The input vector of the sequences is supposed to be fixed in length. Hence, a max_length parameter defines the maximum length of a sequence that the transformer can accept. All the sequences that are greater in length than max_length are truncated while shorter sequences are padded with zeros. The zero-paddings, however, are not supposed to contribute to the attention calculation nor in the target sequence generation. Thus, the need for masks.
 
 To prevent the model from attending to the padding tokens and considering them as meaningful input, a padding mask is applied. The padding mask is a binary mask with the same shape as the input sequence, where the padded positions are marked with 0s and the non-padded positions are marked with 1s.
 
@@ -239,6 +239,8 @@ $$
 $$
 Attention(Q, K, V) = softmax(\frac{QK^T}{\sqrt{dk}}) V
 $$
+
+This equation is basically what the diagram above is depicting.
 
 The scaled dot-product attention is a major component of the next part (multi-head attention).
 
