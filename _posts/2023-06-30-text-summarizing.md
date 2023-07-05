@@ -254,9 +254,11 @@ $$
 
 This is the reason why d_model needs to be completely divisible by h. So, while splitting, the d_model shaped vectors are split into h vectors of shape depth.
 
-These vectors are passed as Q, K, V to the scaled dot product, and the output is ‘Concat’ by again reshaping the h vectors into 1 vector of shape d_model. This reformed vector is then passed through a feed-forward neural network layer.
+**These vectors are passed as Q, K, V to the scaled dot product**, and the output is ‘Concat’ by again reshaping the h vectors into 1 vector of shape d_model. This reformed vector is then passed through a feed-forward neural network layer. Basically divide the usual input in $h$ parts and passing them to the scaled dot product attention transformation we saw earlier.
 
-The Point-wise feed-forward network block is essentially a two-layer linear transformation which is used identically throughout the model architecture, usually after attention blocks.
+![img]({{site.url}}/img/9/4.png)
+
+The Point-wise feed-forward network block is essentially a **two-layer linear** transformation which is used identically throughout the model architecture, usually after attention blocks.
 
 For Regularization, a **dropout** is applied to the output of each sub-layer before it is added to the inputs of the sub-layer and normalized.
 
@@ -275,3 +277,7 @@ The Encoder is the part in the left and Decoder is on the right.
 - https://blog.jaysinha.me/train-your-first-neural-network-with-attention-for-abstractive-summarisation/
 
 - https://towardsdatascience.com/transformers-explained-65454c0f3fa7
+
+- https://www.tensorflow.org/text/tutorials/transformer
+
+- https://github.com/rojagtap/abstractive_summarizer/blob/master/summarizer.ipynb
