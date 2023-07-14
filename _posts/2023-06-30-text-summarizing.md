@@ -222,6 +222,12 @@ The positional encodings add a unique value to each embedding based on the posit
 
 The choice of the specific values, such as [0.0], [0.841], [0.909], and so on in the previous example, is not inherently significant. These values are based on the sine and cosine functions and are used to create distinct patterns (or random?) across different positions. 
 
+**Learning Rate Schedule**
+
+A **learning rate schedule** is a technique used in training machine learning models to adjust the learning rate over the course of training. The learning rate **determines the step size at which the model's parameters are updated** during optimization.
+
+The **optimizer** in this case is Adam, which determines how the update gets done. In general, the optimizer, which is built using the **learning rate**, updates the model's trainable variables based on the loss, too.
+
 ---
 
 **Padding Mask**: The input vector of the sequences is supposed to be fixed in length. Hence, a max_length parameter defines the maximum length of a sequence that the transformer can accept. All the sequences that are greater in length than max_length are truncated while shorter sequences are padded with zeros. The zero-paddings, however, are not supposed to contribute to the attention calculation nor in the target sequence generation. Thus, the need for masks.
@@ -290,6 +296,28 @@ The architecture of a Transformer is now complete:
 
 The Encoder is the part in the left and Decoder is on the right.
 
+## Attention Weights
+
+The attention weights are visualized using heatmaps. Let's break down the interpretation of the heatmap's x-axis and y-axis:
+
+- **X-axis**: The x-axis represents the encoder timestep. In the context of attention mechanisms, it corresponds to the positions or steps in the input sequence (encoder) that the decoder pays attention to. Each tick on the x-axis corresponds to a specific timestep or position in the encoder sequence.
+
+- **Y-axis**: The y-axis represents the decoder timestep. It indicates the positions or steps in the output sequence (decoder) that receive attention from the encoder. Each tick on the y-axis corresponds to a specific timestep or position in the decoder sequence.
+
+By visualizing the attention weights as a heatmap, you can observe how different parts of the **input sequence (encoder)** and **output sequence (decoder)** interact and contribute to the generation of each word in the summary. The intensity of the heatmap at a particular position indicates the strength or magnitude of attention between the corresponding encoder and decoder timesteps.
+
+I am thus plotting the attention weights in heatmaps. Now I got a grid of plots with 8 columns representing the 8 heads in the multihead model and $N$ rows representing the amount of steps the prediction loop takes. However, in this loop I always take the attention weight corresponding to the decoder layer 4 and its block 2. **What does that mean?**
+
+- **Each block** in the decoder has **8 heads**, since we configured the model to have 8.  The use of multiple heads in the attention mechanism allows the model to capture different types of information or patterns from the input sequence simultaneously.
+
+- **Each of the 4 layers** we configured, **has 2 blocks**. In the original transformer model, each layer consists of two sub-layers: the multi-head self attention mechanism and the feed-forward network. **Each block consists of a self-attention mechanism and a feed-forward neural network**. By having multiple blocks, the model can perform multiple rounds of attention-based computations.
+
+- The `EncoderLayer` has one block, and each `DecoderLayer` has two blocks. Therefore, if you have four `DecoderLayer` instances, you would have a total of eight blocks in the decoder. 
+
+    - The terms "block" or "block1" and "block2" are not referring to separate blocks within the layers. They are being used to indicate **different attention mechanisms within the same layer**. The term "block" does not refer to a separate block or layer in the model architecture.
+
+    - The `EncoderLayer` has one multi-head attention mechanism (`self.mha`), and the `DecoderLayer` has two multi-head attention mechanisms (`self.mha1` and `self.mha2`).
+
 ## Handy Links
 
 - https://blog.floydhub.com/gentle-introduction-to-text-summarization-in-machine-learning/
@@ -303,3 +331,7 @@ The Encoder is the part in the left and Decoder is on the right.
 - https://www.tensorflow.org/text/tutorials/transformer
 
 - https://github.com/rojagtap/abstractive_summarizer/blob/master/summarizer.ipynb
+
+- https://medium.com/luisfredgs/automatic-text-summarization-with-machine-learning-an-overview-68ded5717a25
+
+- https://towardsdatascience.com/attention-and-transformer-models-fe667f958378
