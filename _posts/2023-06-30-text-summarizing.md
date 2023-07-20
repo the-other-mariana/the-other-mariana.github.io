@@ -6,6 +6,8 @@ categories: machine-learning
 modified_date:   2023-06-30 13:20:00 +0000
 ---
 
+The automatization of text summaries allows people to 'read' faster, especially when browsing for a text that fulfills their interests. Thus, teaching the computer how to provide a summary of a large text seems like a task that would help people find what they're looking for faster.
+
 Types of text summarization:
 
 - Extraction-based summarization
@@ -317,6 +319,89 @@ I am thus plotting the attention weights in heatmaps. Now I got a grid of plots 
     - The terms "block" or "block1" and "block2" are not referring to separate blocks within the layers. They are being used to indicate **different attention mechanisms within the same layer**. The term "block" does not refer to a separate block or layer in the model architecture.
 
     - The `EncoderLayer` has one multi-head attention mechanism (`self.mha`), and the `DecoderLayer` has two multi-head attention mechanisms (`self.mha1` and `self.mha2`).
+
+## Technicalities I Should Know By Now
+
+The multiplication of either $Q \times W$, $K \times W$ or $V \times W$ is often called a **linear transformation** because it can be expressed as a matrix multiplication, fundamental of linear algebra.
+
+The matrix $W$ contains the learnable parameters of the layer and determines how the input $Q$ will be transformed. The weights are initialized randomly at first.
+
+Mathematically, let $Q$ be a row vector - which is a speciall case of a matrix - of size `(1, d_model)`:
+
+$$
+Q = 
+\begin{bmatrix}
+q_1 & q_2 & ... & q_{dmodel}
+\end{bmatrix},
+$$
+
+where $dmodel$ is the number of dimensions the word embeddings have. Then, the weight matrix $W$ has a size of `(d_model, d_model)`. For example, if $dmodel = 4$, the linear transformation would look like below.
+
+$$
+\begin{bmatrix}
+q_1 & q_2 & q_3 & q_4
+\end{bmatrix}
+\times
+\begin{bmatrix}
+w_{11}  & w_{12}  & w_{13}  & w_{14} \\
+w_{21}  & w_{22}  & w_{23}  & w_{24} \\
+w_{31}  & w_{32}  & w_{33}  & w_{34} \\
+w_{41}  & w_{42}  & w_{43} & w_{44}
+\end{bmatrix}
+=
+\begin{bmatrix}
+q_1(w_{11}) + q_2(w_{21}) + q_3(w_{31}) + q_4(w_{41}) \\
+q_1(w_{12}) + q_2(w_{22}) + q_3(w_{32}) + q_4(w_{42}) \\
+q_1(w_{13}) + q_2(w_{23}) + q_3(w_{33}) + q_4(w_{43}) \\
+q_1(w_{14}) + q_2(w_{24}) + q_3(w_{34}) + q_4(w_{44})
+\end{bmatrix}^T
+=
+\begin{bmatrix}
+q'_1 & q'_2 & q'_3 & q'_4
+\end{bmatrix}
+$$
+
+The **linear transformation** is called *linear* because it's a linear combination of input $Q$ with the weights $w_{ij}$. Each element of $Q'$ is now obtained by the weighted sum of the elements in input $Q$. **This is a linear operation because it involves only addition and scalar multiplication.**
+
+![img]({{site.url}}/img/9/6.png)
+
+In **Feed Forward Networks**,
+
+> Each column of weights in weight matrix W, corresponds to the weights of one neuron in the subsequent layer.
+
+What if we had 3 neurons in the next layer? In that case, we know that $W$ would have 3 columns and 4 rows. Therefore the multiplication would have dimensions `(1, 4) x (4, 3) = (1, 3)`:
+
+$$
+\begin{bmatrix}
+q_1 & q_2 & q_3 & q_4
+\end{bmatrix}
+\times
+\begin{bmatrix}
+w_{11}  & w_{12}  & w_{13} \\
+w_{21}  & w_{22}  & w_{23} \\
+w_{31}  & w_{32}  & w_{33} \\
+w_{41}  & w_{42}  & w_{43}
+\end{bmatrix}
+=
+\begin{bmatrix}
+q_1(w_{11}) + q_2(w_{21}) + q_3(w_{31}) + q_4(w_{41}) \\
+q_1(w_{12}) + q_2(w_{22}) + q_3(w_{32}) + q_4(w_{42}) \\
+q_1(w_{13}) + q_2(w_{23}) + q_3(w_{33}) + q_4(w_{43})
+\end{bmatrix}^T
+=
+\begin{bmatrix}
+q'_1 & q'_2 & q'_3
+\end{bmatrix}
+$$
+
+We can see that each the weighted sum stays the same for the remaining neurons, and by having three, we just implied we took out one row of weighted sums.
+
+![img]({{site.url}}/img/9/7.png)
+
+Let's consider another example: $Q$ is a row vector with shape `(1, d_model)` representing the output from the previous layer (i. e., a Multihead Attention Layer). Then, $W$ is the weight matrix with shape `(d_model, dff)` where `dff` is the number of neurons in the subsequent layer.
+
+After the matrix multiplication $Q \times W = Q'$, the resulting output will be a row vector of size `(1, dff)`.
+
 
 ## Handy Links
 
