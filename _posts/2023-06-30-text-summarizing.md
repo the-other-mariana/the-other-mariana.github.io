@@ -416,7 +416,7 @@ This is reminiscent of the last section's second example where we stated what wo
 
 An example in the Transformer architecture can be seen at the Encoder Layer structure:
 
-![img]({{site.url}}/img/9/9.png)
+![img]({{site.url}}/img/9/8.png)
 
 which is implemented as:
 
@@ -429,6 +429,47 @@ attn_output = self.dropout1(attn_output, training=training)
 ```
 
 If we mentioned that the dropout happens *inside* the layers of neurons, why would it be a separate layer? The Dropout layer is not part of the `MultiHeadAttention` layer because the output of the multihead attention layer is the one that goes through dropout, allowing for more control in the dropout application.
+
+### What Exaclty is Query, Key and Value?
+
+The Q, K and V are the input to the self attention mechanism, which is used in this line:
+
+```python
+attn_output, _ = self.mha(x, x, x, mask)
+```
+
+which triggers the `__call__` method inside the `MultiHeadAttention` class:
+
+```python
+def call(self, v, k, q, mask):
+    batch_size = tf.shape(q)[0]
+
+    # applies the layer to the params: matmul between q and the weights in the layer (learned)
+    q = self.wq(q)
+    k = self.wk(k)
+    v = self.wv(v)
+
+    # splits result into h parts
+    q = self.split_heads(q, batch_size)
+    k = self.split_heads(k, batch_size)
+    v = self.split_heads(v, batch_size)
+
+    # applies attention to each h part
+    scaled_attention, attention_weights = scaled_dot_product_attention(
+        q, k, v, mask)
+
+    scaled_attention = tf.transpose(scaled_attention, perm=[0, 2, 1, 3])
+
+    # concat the h parts again into its original shape
+    concat_attention = tf.reshape(scaled_attention, (batch_size, -1, self.d_model))
+
+    # linear step again 
+    output = self.dense(concat_attention)
+        
+    return output, attention_weights
+```
+
+But, what exactly is the Q, K and V if I'm sending the vector $x$ everytime?
 
 ## Handy Links
 
