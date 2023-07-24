@@ -322,6 +322,8 @@ I am thus plotting the attention weights in heatmaps. Now I got a grid of plots 
 
 ## Technicalities I Should Know By Now
 
+### MatMul
+
 The multiplication of either $Q \times W$, $K \times W$ or $V \times W$ is often called a **linear transformation** because it can be expressed as a matrix multiplication, fundamental of linear algebra.
 
 The matrix $W$ contains the learnable parameters of the layer and determines how the input $Q$ will be transformed. The weights are initialized randomly at first.
@@ -402,6 +404,31 @@ Let's consider another example: $Q$ is a row vector with shape `(1, d_model)` re
 
 After the matrix multiplication $Q \times W = Q'$, the resulting output will be a row vector of size `(1, dff)`.
 
+### Dropout
+
+Deep learning neural networks can fall into **overfitting**, and one of the simplest ways to avoid it is using different model configs, but it requires computational power to train each one. Thus, **dropout** came about: it is a way in which a single model can be used to simulate having a large number of different network architectures by randomly dropping out nodes during training. 
+
+> Dropout is a regularization method that approximates training a large number of neural networks with different architectures in parallel.
+
+By ignoring a random layer output, we make the layer look like it has a different number of nodes. This makes that, with each update during training, the network uses a different architecture. The dropout of a layer output involves removing its incoming and outgoing connections.
+
+This is reminiscent of the last section's second example where we stated what would happen if instead of 4 neurons in the second layer we had just 3: by removing all its connections (incoming and outgoing), the algebraic implications are basically none, since mathematically the resulting vector has one less element and the computation's algorithm stay the same.
+
+An example in the Transformer architecture can be seen at the Encoder Layer structure:
+
+![img]({{site.url}}/img/9/9.png)
+
+which is implemented as:
+
+```python
+# init method
+self.dropout1 = tf.keras.layers.Dropout(rate)
+# call method
+attn_output, _ = self.mha(x, x, x, mask)
+attn_output = self.dropout1(attn_output, training=training)
+```
+
+If we mentioned that the dropout happens *inside* the layers of neurons, why would it be a separate layer? The Dropout layer is not part of the `MultiHeadAttention` layer because the output of the multihead attention layer is the one that goes through dropout, allowing for more control in the dropout application.
 
 ## Handy Links
 
