@@ -337,7 +337,7 @@ q_1 & q_2 & ... & q_{dmodel}
 \end{bmatrix},
 $$
 
-where $dmodel$ is the number of dimensions the word embeddings have. Then, the weight matrix $W$ has a size of `(d_model, d_model)`. For example, if $dmodel = 4$, the linear transformation would look like below.
+where $dmodel$ is the number of dimensions the word embeddings have (or the number of neurons in the input layer). Then, the weight matrix $W$ has a size of `(d_model, d_model)`. For example, if $dmodel = 4$, the linear transformation would look like below.
 
 $$
 \begin{bmatrix}
@@ -469,7 +469,53 @@ def call(self, v, k, q, mask):
     return output, attention_weights
 ```
 
-But, what exactly is the Q, K and V if I'm sending the vector $x$ everytime?
+But, what exactly is the Q, K and V if I'm sending the vector $x$ every time? They stand for Query, Key and Value, respectively. They are three different **linear projections** of the input $x$ to be used in the attention mechanism. The input $x$ is used for all three components of attention, namely the Q, K and V. This makes the algorithm pay attention to different parts of the input $x$.
+
+Given the input sequence $x$, the Multi-head Attention performs three **different linear projections** of $x$ to obtain `q`, `k`, and `v`. These projections are performed using three separate weight matrices: `wq`, `wk`, and `wv`, which are the matrix multiplications of Q, K and V and a learned weight matrix. Mathematically, the projections are:
+
+$$
+q = x \times W_q \\
+k = x \times W_k \\
+v = x \times W_v
+$$
+
+Here, $x$ is the input sequence and $W_q$ is a learned weight matrix. The multiplication means that each position in the input sequence $x$ is multiplied element-wise by the corresponding row of the matrix $W_q$. The result is the $q$ vector, which represents the **query**. Similarly, **key** and the **value** are obtained.
+
+After obtaining Q, K and V, the attention mechanism computes the attention scores between the query Q and the key K to determine *how much each position in the input sequence should attend to other positions*. These attentions scores are computed using the scaled dot-product attention mechanism:
+
+```python
+attention_scores = softmax((q * k^T) / sqrt(d_model))
+```
+
+But how would a scaled dot product output attention scores exactly, which would determine the importance of each position in the input sequence to other positions?
+
+1. We compute the scaled dot product of queries Q and keys K:
+
+$$
+q \times k^T
+$$
+
+Here, $q$ and $k$ are matrices , where each row represents **a query vector** and a **key vector**. The **dot product** operation between them computes the **similarity between each query and each key**. How is this possible? Well, remember two vectors that point to the same direction and have the same length output a dot product of 1, which makes *the dot product a measure of similarity!* 
+
+2. Then, we scale the dot product by the square root of the dimension of the query vectors $dmodel$:
+
+$$
+\frac{q \times k^T}{\sqrt{dmodel}}
+$$
+
+This step scales the dot product from getting too large, in order to **stabilize the learning process**. The scaling factor $\sqrt{dmodel}$ is empirically found to work well.
+
+3. After that, we apply the softmax function along the last axis (axis=-1) 
+
+These attention scores are then used to weight the value V at each position, producing the weighted sum of values (matmul) as the attention output:
+
+```python
+attention_output = attention_scores * v
+```
+
+These attention outputs from all the heads are concatenated together and linearly transformed by another weight matrix to produce the final output of the Multi-Head Attention mechanism.
+
+> q, k, and v are not three separate linear projections of x, but rather, they are derived from x through linear projections using different weight matrices. 
 
 ## Handy Links
 
