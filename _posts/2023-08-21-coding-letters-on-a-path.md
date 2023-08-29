@@ -6,6 +6,8 @@ categories: mit
 modified_date:   2023-08-21 21:27:00 +0000
 ---
 
+The challenge now is to make letters paint the frame on its own. For that, I got the references that Design uses:
+
 ![img]({{site.url}}/img/12/1.png)
 
 Therefore, we need to generalize the proportions of the figures for all sizes. The first thing to do was
