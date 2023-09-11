@@ -3,7 +3,7 @@ layout: post
 title:  "Coding Letters On A Path"
 date:   2023-08-21 01:26:00 -0600
 categories: mit
-modified_date:   2023-08-21 21:27:00 +0000
+modified_date:   2023-08-28 21:27:00 +0000
 ---
 
 The challenge now is to make letters paint the frame on its own. For that, I got the references that Design uses:
@@ -80,3 +80,26 @@ r = b \cdot (\frac{R}{B})
 $$
 
 These measures are needed to define the following coordinate points:
+
+![img]({{site.url}}/img/12/6.png)
+
+They depend on `$matrix->getMarginLeft()`, `$frameMargin`, `$frameDist`, `n`, `r` and the epsilon.
+
+```php
+$xTopLeftVertical = $matrix->getMarginLeft() + $frameMargin*$frameDist + $n + $r - $epsilon;
+$yTopLeftVertical = $matrix->getMarginLeft() + $frameMargin*$frameDist + $epsilon + $n;
+
+$xTopLeftHorizontal = $matrix->getMarginLeft() + $frameMargin*$frameDist + $n - $epsilon;
+$yTopLeftHorizontal = $matrix->getMarginLeft() + $frameMargin*$frameDist + $n + $r - $epsilon + $n;
+
+$xBottomRightVertical = $fullSize - $matrix->getMarginLeft() - $frameMargin*$frameDist - $n - $r + $epsilon;
+$yBottomRightVertical = $fullSize - $matrix->getMarginLeft() - $frameMargin*$frameDist - $epsilon - $n*0.5;
+
+$xBottomRightHorizontal = $fullSize - $matrix->getMarginLeft() - $frameMargin*$frameDist - $n + $epsilon;
+$yBottomRightHorizontal = $fullSize - $matrix->getMarginLeft() - $frameMargin*$frameDist - $n - $r + $epsilon - $n*0.5;
+```
+
+Since, we mentioned `n`, it's important to define the full scheme from with these variables come from:
+
+![img]({{site.url}}/img/12/7.png)
+
