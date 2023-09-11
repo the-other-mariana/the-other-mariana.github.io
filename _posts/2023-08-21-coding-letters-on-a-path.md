@@ -101,5 +101,5 @@ $yBottomRightHorizontal = $fullSize - $matrix->getMarginLeft() - $frameMargin*$f
 
 Since, we mentioned `n`, it's important to define the full scheme from with these variables come from:
 
-![img]({{site.url}}/img/12/7.png)
+![img]({{site.url}}/img/12/8.png)
 
