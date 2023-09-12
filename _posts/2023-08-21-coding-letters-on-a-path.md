@@ -114,8 +114,8 @@ The general notion is that, in a loop (a while loop), each letter is placed in t
 How do we perform the computation of the next coordinate point where a letter must be placed? Let $w$ be the letter width in pixels and $y$ the letter separation gap, also in pixels. The $\Delta_p$ then is the change in position that each iteration signifies, but $\Delta_p$ changes depending on the type of section you are currently in.  For **straight sections**, $\Delta_p = w + y$, but for **circled sections**, the idea of $\Delta_p$ morphs to $\Delta_a$ or change in *angle*. The position $(x, y)$ is not accumulated in this sections, and what is accumulated is the angle.
 
 $$
-x = Cx_i + width_i \cdot cos(\theta_j) \\
-y = Cy_i + height_i \cdot \sin(\theta_j)
+x = Cx_i + width_i \cdot cos(\theta_j + \phi) \\
+y = Cy_i + height_i \cdot \sin(\theta_j + \phi)
 $$
 
 where
@@ -132,4 +132,7 @@ $$
 
 This definition can be best explained with the diagram below, where the two componets of $\Delta_a$ are represented by $z$ and $x$.
 
-![img]({{site.url}}/img/12/9.png)
+![img]({{site.url}}/img/12/10.png)
+
+
+The angle $\phi$ is not accumulated in the definition of $\theta_j$ because it must be added just one time per circled section, since $\phi$
