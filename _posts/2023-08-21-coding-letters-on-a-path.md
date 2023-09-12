@@ -3,7 +3,7 @@ layout: post
 title:  "Coding Letters On A Path"
 date:   2023-08-21 01:26:00 -0600
 categories: mit
-modified_date:   2023-08-28 21:27:00 +0000
+modified_date:   2023-09-12 21:27:00 +0000
 ---
 
 The challenge now is to make letters paint the frame on its own. For that, I got the references that Design uses:
@@ -124,7 +124,7 @@ $$
 \theta_j = \theta_{j - 1} + \Delta_a
 $$
 
-and $i$ refers to the current circle (from a total of 4), $Cx$ and $Cy$ refer to the corresponding x and y values of the coordinate points that make up the 4 known circles' centers, and $j$ would represent the current iteration in the while loop. Then, the computation of $\Delta_a$ is defined as:
+and $i$ refers to the current circle (from a total of 4), $Cx$ and $Cy$ refer to the corresponding x and y values of the coordinate points that make up the 4 known circles' centers, and $j$ would represent the current iteration in the while loop. It's important to note **that the angle doesn't change for x and y even though the radius does when it's an ellipse**. Then, the computation of $\Delta_a$ is defined as:
 
 $$
 \Delta_a = |tan^{-1}\left(\frac{y}{width_i}\right)| + |tan^{-1}\left(\frac{w}{width_i}\right)|
@@ -144,3 +144,9 @@ $$
 And graphically, its represented as
 
 ![img]({{site.url}}/img/12/11.png)
+
+After defining $\Delta_p$ and $\Delta_a$ plus the idea of sections, we are almost done with all the algorithm's pieces. One thing to note now is the references for the starting angle of the letters when the section is **straight**. Since the computation for the starting angle when in circled sections is the sum of the last straight section's starting angle and $\phi$, the starting angle is marked as `-1` for circled sections. 
+
+Another note is that, when we know that the circled section distance is covered for the current section, then the following **straight section's starting coordinate**, *opposite* to the coordinate in which the distance will be covered in, must be set to the **reference one**, *not the current* x or y in which the circled section finished. For example, if a circled section finished and a straight section along the x axis is following, then the y coordinate must be set to the reference starting point of the section, not where the circled section finished in y. This detail keeps the overall frame centered, avoiding back-propagation of the pixel difference that each section leaves. You can see below and example where this detail is not implemented (left), and also fixed (right).
+
+![img]({{site.url}}/img/12/13.png)
