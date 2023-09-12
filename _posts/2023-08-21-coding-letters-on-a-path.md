@@ -130,4 +130,6 @@ $$
 \Delta_a = |tan^{-1}\left(\frac{y}{width_i}\right)| + |tan^{-1}\left(\frac{w}{width_i}\right)|
 $$
 
-This definition can be best explained with the diagram below.
+This definition can be best explained with the diagram below, where the two componets of $\Delta_a$ are represented by $z$ and $x$.
+
+![img]({{site.url}}/img/12/9.png)
