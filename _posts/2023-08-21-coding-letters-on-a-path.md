@@ -99,7 +99,9 @@ $xBottomRightHorizontal = $fullSize - $matrix->getMarginLeft() - $frameMargin*$f
 $yBottomRightHorizontal = $fullSize - $matrix->getMarginLeft() - $frameMargin*$frameDist - $n - $r + $epsilon - $n*0.5;
 ```
 
-Since, we mentioned `n`, it's important to define the full scheme from with these variables come from:
+Since, we mentioned `n`, it's important to define the full scheme from which these variables come from:
 
 ![img]({{site.url}}/img/12/8.png)
+
+Then, the next step is to call `imageFilledCircledRect(\GdImage $image, int $color, array $verticalRectCoords, array $horizontalRectCoords, array $circleCenters, array $circleRadii)` two times in order to create the two circled rectangles that we frame needs, one in the foreground color (ie black) and the background color (ie white). By changing the **size of the radii** and moving the **top left and bottom right corners**, we can keep the **same circle centers** in *both* circled rectangles.
 
