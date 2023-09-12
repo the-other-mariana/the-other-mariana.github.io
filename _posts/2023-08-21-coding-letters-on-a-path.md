@@ -105,3 +105,29 @@ Since, we mentioned `n`, it's important to define the full scheme from which the
 
 Then, the next step is to call `imageFilledCircledRect(\GdImage $image, int $color, array $verticalRectCoords, array $horizontalRectCoords, array $circleCenters, array $circleRadii)` two times in order to create the two circled rectangles that we frame needs, one in the foreground color (ie black) and the background color (ie white). By changing the **size of the radii** and moving the **top left and bottom right corners**, we can keep the **same circle centers** in *both* circled rectangles.
 
+Now the letter placing algorithm can be defined. The first thing to point out is the **sections**: there are 8 as a total, where 4 are **straight sections (orange)** and 4 are **circled sections (green)**.
+
+![img]({{site.url}}/img/12/9.png)
+
+The general notion is that, in a loop (a while loop), each letter is placed in the *beginning* of each iteration with `imagettftext(\GdImage $image, int $size, int $angle, int $x, int $y, int $color, <FONT_PATH>, string $text)`, and therefore, a coordinate point where the current letter is written must be computed in all iterations. The *beginning* of each iteration writes a letter. Therefore, we must *initialize the start coordinate*, so that in the first iteration it is used, and from that point on, at the *end* of the iterations in the loop, right before moving onto the next, the *next coordinate point* is computed.
+
+How do we perform the computation of the next coordinate point where a letter must be placed? Let $w$ be the letter width in pixels and $y$ the letter separation gap, also in pixels. The $\Delta_p$ then is the change in position that each iteration signifies, but $\Delta_p$ changes depending on the type of section you are currently in.  For **straight sections**, $\Delta_p = w + y$, but for **circled sections**, the idea of $\Delta_p$ morphs to $\Delta_a$ or change in *angle*. The position $(x, y)$ is not accumulated in this sections, and what is accumulated is the angle.
+
+$$
+x = Cx_i + width_i \cdot cos(\theta_j) \\
+y = Cy_i + height_i \cdot \sin(\theta_j)
+$$
+
+where
+
+$$
+\theta_j = \theta_{j - 1} + \Delta_a
+$$
+
+and $i$ refers to the current circle (from a total of 4), $Cx$ and $Cy$ refer to the corresponding x and y values of the coordinate points that make up the 4 known circles' centers, and $j$ would represent the current iteration in the while loop. Then, the computation of $\Delta_a$ is defined as:
+
+$$
+\Delta_a = |tan^{-1}\left(\frac{y}{width_i}\right)| + |tan^{-1}\left(\frac{w}{width_i}\right)|
+$$
+
+This definition can be best explained with the diagram below.
