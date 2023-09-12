@@ -135,4 +135,10 @@ This definition can be best explained with the diagram below, where the two comp
 ![img]({{site.url}}/img/12/10.png)
 
 
-The angle $\phi$ is not accumulated in the definition of $\theta_j$ because it must be added just one time per circled section, since $\phi$
+The angle $\phi$ is not accumulated in the definition of $\theta_j$ because it must be added just one time per circled section, since $\phi$ represents the *starting angle* when the circled section begins. This comes from the fact that, during a straight section, we know the current section's distance is covered and the section type must change when the **distance** between current position plus $\Delta_p \times 0.5$ and the starting coordinate of the current section is **bigger than** the reference masure known as $g$. Therefore, in the last iteration of a straight section, if $\Delta_p \times 0.5$ fits, which means if half a letter fits, we place it as the last letter of that straight section. That means, there exists always a possibility that the straight sections exceed the ideal $g$ by pixels of *half a letter of less*. Thus, if we were to start each circled sections initial $\theta_i$ as 0, the first letter of a circled section would possibly overlap the last staright sections letter by pixels of *half a letter of less*. This originated the need for a starting angle known as $\phi$, in order to calculate the starting angle by knowing how much did the last letter of the previous straight section exceeded $g$. We can now define $\phi$ as
+
+$$
+\phi = |tan^{-1}\left(\frac{\hbox{remaining width} - g_x}{height_i}\right)|
+$$
+
+where $g_x$ is the measure $g$ but in horizontal cases (in case there is a discrepancy between vertical ones, but should be the same in both cases).
