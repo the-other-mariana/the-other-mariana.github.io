@@ -3,7 +3,7 @@ layout: post
 title:  "Coding Letters On A Path"
 date:   2023-08-21 01:26:00 -0600
 categories: mit
-modified_date:   2023-09-12 21:27:00 +0000
+modified_date:   2023-09-13 21:27:00 +0000
 ---
 
 The challenge now is to make letters paint the frame on its own. For that, I got the references that Design uses:
@@ -150,3 +150,7 @@ After defining $\Delta_p$ and $\Delta_a$ plus the idea of sections, we are almos
 Another note is that, when we know that the circled section distance is covered for the current section, then the following **straight section's starting coordinate**, *opposite* to the coordinate in which the distance will be covered in, must be set to the **reference one**, *not the current* x or y in which the circled section finished. For example, if a circled section finished and a straight section along the x axis is following, then the y coordinate must be set to the reference starting point of the section, not where the circled section finished in y. This detail keeps the overall frame centered, avoiding back-propagation of the pixel difference that each section leaves. You can see below and example where this detail is not implemented (left), and also fixed (right).
 
 ![img]({{site.url}}/img/12/13.png)
+
+We mentioned that the angle of the letters in circled sections is always set to -1 in a constant array. This serves the purpose to identify quickly when we are in a circled section, but also because the angle of the letters doesn't stay constant in these sections, unlike the straight ones. We indeed computed $\Delta_a$ and $\phi$, but these were the angles used for **computing the position alongside the ellipse arc**, and it's different from the angle of *inclination of the letter*. The latter is simply the **negative of $\Delta_a$ and $\phi$**, that is, the negative of the whole angle we use inside the cosine and sine functions. This can be explained better graphically:
+
+![img]({{site.url}}/img/12/12.png)
