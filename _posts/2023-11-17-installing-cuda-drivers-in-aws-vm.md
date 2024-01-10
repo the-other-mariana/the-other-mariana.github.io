@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Installation CUDA Drivers In An AWS Datacenter"
+title:  "Installation of CUDA Drivers In An AWS Datacenter"
 date:   2023-11-17 10:30:00 -0600
 categories: aws
 modified_date:   2023-11-17 11:00:00 +0000
@@ -17,7 +17,7 @@ This guide is basically the commands with which a CUDA code ran successfully usi
 1. Connect to your EC2 instance through SSH:
 
 ```
-ssh wispok@34.233.18.78
+ssh user@ip
 ```
 
 2. Install drivers for ubuntu
