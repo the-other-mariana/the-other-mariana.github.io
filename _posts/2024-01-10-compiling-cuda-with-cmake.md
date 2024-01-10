@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Compiling CUDA Projects With CMake"
-date:   2024-01-10 10:30:00 -0600
+date:   2023-12-14 10:30:00 -0600
 categories: cmake
 modified_date:   2024-01-10 11:00:00 +0000
 ---
