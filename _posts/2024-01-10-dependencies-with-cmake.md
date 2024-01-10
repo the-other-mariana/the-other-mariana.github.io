@@ -6,8 +6,6 @@ categories: cmake
 modified_date:   2024-01-10 10:20:00 +0000
 ---
 
-# C++ Dependencies With CMake
-
 CMake is a great tool to manage your dependencies smoothly in C++ projects, but some open source repositories don't provide installation info for CMake projects. This guide aims to show you how to include repositories in your projects using CMake. In particular, ZXing (famous QR code library) and OpenCV (famous computer vision library).
 
 *Note: maybe it is a good idea to install OpenCV before ZXing, since ZXing enables an extra module if it finds OpenCV in the system.
