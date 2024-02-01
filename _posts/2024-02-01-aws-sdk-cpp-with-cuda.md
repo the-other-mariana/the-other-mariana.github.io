@@ -8,7 +8,7 @@ modified_date:   2024-01-10 12:20:00 +0000
 
 Even though CUDA uses C++ syntax, most C++ libraries include features that are not allowed in CUDA. All the libraries you want to use in your CUDA project must be used in C++ code. Usually, as long as your library is called from the host code, it will work just fine. However, there are some libraries, such as AWS SDK, that cannot be compiled by CUDA at all. This guide is made for the purpose of creating such a separation in the CMake config of the project so that AWS SDK is not accessed by any CUDA compiler.
 
-For this guide, image you got a project with the structure:
+For this guide, imagine you got a project with the structure:
 
 ```
 cuda/
