@@ -6,6 +6,8 @@ categories: cuda
 modified_date:   2024-02-16 10:20:00 +0000
 --- 
 
+# Wrap CUDA Application In Golang
+
 In today's standards, applications very rarely stay as standalone, and instead the usual step further is to give the user an access point through the internet, through an API. 
 
 Once you got a C/C++ app that uses a kernel with CUDA, how can we make it accessible through an API? We could code a server in C++, but is that the most maintainable option?
@@ -14,7 +16,7 @@ Personally, I prefer to use a language that is more suited for internet access e
 
 ## Create A Shared Library
 
-In this text I assume you got a CMake build pipeline to create an **executable file for your project**. For the wrapping, we need to modify the CMake files in order to ditch the executable and create a **shared library** instead. In Linux, a shared library has the .so extension, while in Windows it stands as .dll. Most servers are cheaper if you run a Linux machine, so we will go on with the Linux way.
+In this text I assume you got a CMake build pipeline to create an **executable file for your project**. For the wrapping, we need to modify the CMake files in order to create the executable (for running the standalone) and create a **shared library** as well (for go). In Linux, a shared library has the .so extension, while in Windows it stands as .dll. Most servers are cheaper if you run a Linux machine, so we will go on with the Linux way.
 
 CGo calls **C** code, but since CUDA is compiled with C++ syntax, we need to basically create a C interface that can call C++ code. CGo calls this interface, and this interface calls C++/CUDA code.
 
@@ -90,13 +92,13 @@ cuda/
 |   ├─ Lib1.cpp
 |   ├─ CMakeLists.txt
 ├─ main.cu
-├─ main_interface.h <-----
+├─ main_interface.hpp <-----
 ├─ CMakeLists.txt
 ```
 
 2. Include the `extern "C"` directive in the function declaration between preprocessor directives to ensure it's recognized only by C++ compiler. The `extern` linkage especifier is not recognized by C, so that's why we enclose it with preprocessor directives:
 
-- `main_interface.h`
+- `main_interface.hpp`
 
 ```c++
 #ifndef MAIN_INTERFACE_H
@@ -182,7 +184,7 @@ cuda/
 |   ├─ Wrapper.h
 |   ├─ CMakeLists.txt
 ├─ main.cu
-├─ main_interface.h
+├─ main_interface.hpp
 ├─ CMakeLists.txt
 ```
 
@@ -222,13 +224,9 @@ As mentioned before, we need to stop generating an **executable file** (.o) and 
 
 - `wrapper/CMakeLists.txt`
 
-```
-cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
-project(wrapper LANGUAGES C CXX CUDA)  # include C, C++ and CUDA langs
-
+```cmake
 find_package(CUDA REQUIRED)
 
-# include here all files that main.cu depends on too
 add_library(wrapper SHARED
     ${CMAKE_SOURCE_DIR}/main_interface.hpp
     ${CMAKE_SOURCE_DIR}/main.cu
@@ -240,7 +238,6 @@ add_library(wrapper SHARED
 set_target_properties(wrapper PROPERTIES ENABLE_EXPORTS 1)
 target_include_directories(wrapper PUBLIC ${CMAKE_SOURCE_DIR})
 
-# include here all libraries (internal or external) that main.cu depends on
 target_link_libraries(wrapper PRIVATE ${OpenCV_LIBS} ZXing::ZXing mylib1)
 ```
 
@@ -266,17 +263,15 @@ include_directories(${OpenCV_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR}/wrapper)
 
 # all files that main.cu uses
-add_library(main SHARED 
+add_executable(main
     main_interface.hpp
     main.cu
     myfolder1/MyFile1.cu
     myfolder2/MyFile2.cu
-    wrapper/Wrapper.c
 )
 
 # libraries that main.cu uses
 target_link_libraries(main ${OpenCV_LIBS} ZXing::ZXing mylib1)
-target_sources(main PRIVATE wrapper)
 set_property(TARGET mylib1 PROPERTY POSITION_INDEPENDENT_CODE ON)
 
 SET (CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=sm_70 -std=c++17")
@@ -284,7 +279,7 @@ SET (CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=sm_70 -std=c++17")
 
 And, just to leave an example of a CMake file to generate `mylib1` as a separated internal library (for aws calls, for example):
 
-- `mylib1/CMakeLists.txt`:
+- `mylib1/CMakeLists.txt`
 
 ```cmake
 add_library(mylib1 Lib1.cpp Lib1.h)
@@ -300,7 +295,7 @@ cmake .
 make
 ```
 
-This will generate two shared libraries:
+This will generate one executable and one shared library:
 
 ```
 cuda/
@@ -317,11 +312,11 @@ cuda/
 ├─ wrapper/
 |   ├─ Wrapper.c
 |   ├─ Wrapper.h
-|   ├─ libwrapper.so <-----
+|   ├─ libwrapper.so <----- shared lib
 |   ├─ CMakeLists.txt
 ├─ main.cu
-├─ main_interface.h
-├─ libmain.so <-----
+├─ main_interface.hpp
+├─ main <----- exe
 ├─ CMakeLists.txt
 ```
 
@@ -390,3 +385,5 @@ LD_LIBRARY_PATH=/home/Documents/my-project/cuda/wrapper ./wrapper
 We specify `LD_LIBRARY_PATH` variable with the path where the `libwrapper.so` is located because the shared lib is not installed in any standard install location, such as `/usr/local` or `/usr/lib`, and so we need to tell the go-tool where the library is located.
 
 When you run the go executable, you will now see your CUDA app output, if you got any, alongside your go output.
+
+Also, the executable we created too as `./main` is there so that you can run the C++ standalone app by itself, maybe useful for quicker debugging.
