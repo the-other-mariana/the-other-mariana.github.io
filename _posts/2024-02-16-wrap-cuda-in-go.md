@@ -220,7 +220,8 @@ As mentioned before, we need to stop generating an **executable file** (.o) and 
 
 1. Add `add_library` with the key word `SHARED` instead of `add_executable` in the `wrapper/CMakeLists.txt`:
 
-- `wrapper/CMakeLists.txt`:
+- `wrapper/CMakeLists.txt`
+
 ```cmake
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(wrapper LANGUAGES C CXX CUDA)  # include C, C++ and CUDA langs
@@ -245,7 +246,7 @@ target_link_libraries(wrapper PRIVATE ${OpenCV_LIBS} ZXing::ZXing mylib1)
 
 Here, it's crucial to include in the `add_library` command all files that `main.cu` depends on, or else the shared library will not include `generate()` because its implementation's dependencies are unknown.
 
-- `./CMakeLists.txt`:
+- `./CMakeLists.txt`
 
 ```cmake
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
