@@ -6,7 +6,7 @@ categories: cuda
 modified_date:   2024-02-16 10:20:00 +0000
 --- 
 
-In todays standards, applications very rarely stay as standalone, and instead the usual step further is to give the user an access point through the internet, through an API. 
+In today's standards, applications very rarely stay as standalone, and instead the usual step further is to give the user an access point through the internet, through an API. 
 
 Once you got a C/C++ app that uses a kernel with CUDA, how can we make it accessible through an API? We could code a server in C++, but is that the most maintainable option?
 
@@ -222,7 +222,7 @@ As mentioned before, we need to stop generating an **executable file** (.o) and 
 
 - `wrapper/CMakeLists.txt`
 
-```cmake
+```
 cmake_minimum_required(VERSION 3.8 FATAL_ERROR)
 project(wrapper LANGUAGES C CXX CUDA)  # include C, C++ and CUDA langs
 
