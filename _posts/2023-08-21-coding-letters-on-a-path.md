@@ -154,3 +154,34 @@ Another note is that, when we know that the circled section distance is covered 
 We mentioned that the angle of the letters in circled sections is always set to -1 in a constant array. This serves the purpose to identify quickly when we are in a circled section, but also because the angle of the letters doesn't stay constant in these sections, unlike the straight ones. We indeed computed $\Delta_a$ and $\phi$, but these were the angles used for **computing the position alongside the ellipse arc**, and it's different from the angle of *inclination of the letter*. The latter is simply the **negative of $\Delta_a$ and $\phi$**, that is, the negative of the whole angle we use inside the cosine and sine functions. This can be explained better graphically:
 
 ![img]({{site.url}}/img/12/12.png)
+
+## Update: CUDA System
+
+This was ported into CUDA/C++ for better (much better) performance and a new design. The new design reference is this:
+
+![img]({{site.url}}/img/12/18.png)
+
+The first new change is the circled rect with the radius following $x$ and $2x$ ratio. For this, the easiest way to build it using primitives like squares and rectangles was to create a function called `XTrapezoid` (pink) and `YTrapezoid` (blue). The X one means the shift is in the x axis, with the Y trapezoid, the same idea but viceversa.
+
+![img]({{site.url}}/img/12/14.png)
+
+The diagram shows the **non-inverse** shape of the trapezoids, but the function also accepts a bool that determines, if true, that the trapezoid axis shifting happens **inversely**. Such inverse x trapezoid is used in both the identifier rectangle shapes:
+
+![img]({{site.url}}/img/12/15.png)
+
+For the construction of the radiuses in the identifier rects, we need to maintain the $x$ and $2x$ ratio, represented by $z$ and $k$ letters, respectively. 
+
+Then the data modules. These have a special detail: whenever 4 vertically contiguous modules are found, they become *candidates* to be painted in a special way (like an 'i' shape). This special way is basically 3 of the lower modules of the group painted together as:
+
+![img]({{site.url}}/img/12/16.png)
+
+and the top module painted as:
+
+![img]({{site.url}}/img/12/17.png)
+
+Notice that this module design is the one used for any other normal data module in the QR.
+
+A *candidate* becomes a *special group* with a probability affected by the number of candidates the current candidate has: the **higher** the number of neighbours, the **less** likely the candidate will be painted as a special group. In this way, the modules are spread out so that, given a mass of candidates, only the corner ones (with less neighbours than the center ones) are painted. 
+
+![img]({{site.url}}/img/12/19.png)
+
