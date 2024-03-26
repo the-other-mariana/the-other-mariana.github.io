@@ -165,6 +165,10 @@ The first new change is the circled rect with the radius following $x$ and $2x$ 
 
 ![img]({{site.url}}/img/12/14.png)
 
+`__device__ void XTrapezoid(uchar color, int x1, int y1, int x2, int y2, int xShiftTop, int xShiftBottom, bool isInverse, uchar* imageData, QrCode* qr)`
+
+Note: `x1`, `y1` and `x2`, `y2` are the ones marked in orange, which are the points that make up the normal rectangle.
+
 The diagram shows the **non-inverse** shape of the trapezoids, but the function also accepts a bool that determines, if true, that the trapezoid axis shifting happens **inversely**. Such inverse x trapezoid is used in both the identifier rectangle shapes:
 
 ![img]({{site.url}}/img/12/15.png)
@@ -184,4 +188,6 @@ Notice that this module design is the one used for any other normal data module 
 A *candidate* becomes a *special group* with a probability affected by the number of candidates the current candidate has: the **higher** the number of neighbours, the **less** likely the candidate will be painted as a special group. In this way, the modules are spread out so that, given a mass of candidates, only the corner ones (with less neighbours than the center ones) are painted. 
 
 ![img]({{site.url}}/img/12/19.png)
+
+Note: this could have been done with a DBSCAN clustering algorithm, where the core point for each cluster would be the candidate that gets painted as a special group. But! Clustering involves a lot of extra data structures, and in CUDA, memory is critical. So for a similar result, the above algorithm was implemented using a recursive function that identifies all vertically contiguous groups of 4 or more as candidates and then decides based on probability as mentioned above.
 
