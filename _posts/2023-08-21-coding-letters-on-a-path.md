@@ -219,7 +219,7 @@ $$
 \overleftarrow{b} = \langle B_x - o_x, B_y - o_y\rangle
 $$
 
-With these two angles we would be needing this dot product identity:
+With these two vectors we would be needing this dot product identity:
 
 $$
 \overleftarrow{a} \cdot \overleftarrow{b} = | \overleftarrow{a} | |\overleftarrow{b} | cos(\theta)
