@@ -2,8 +2,8 @@
 layout: post
 title:  "Coding Letters On A Path"
 date:   2023-08-21 01:26:00 -0600
-categories: mit
-modified_date:   2023-09-13 21:27:00 +0000
+categories: graphics
+modified_date:   2024-05-16 10:00:00 +0000
 ---
 
 The challenge now is to make letters paint the frame on its own. For that, I got the references that Design uses:
@@ -191,3 +191,85 @@ A *candidate* becomes a *special group* with a probability affected by the numbe
 
 Note: this could have been done with a DBSCAN clustering algorithm, where the core point for each cluster would be the candidate that gets painted as a special group. But! Clustering involves a lot of extra data structures, and in CUDA, memory is critical. So for a similar result, the above algorithm was implemented using a recursive function that identifies all vertically contiguous groups of 4 or more as candidates and then decides based on probability as mentioned above.
 
+## Update: New Approach To Compute Character Inclination Angle
+
+Ever since the release of this system, the *inclination* angle for each letter in the circular sections (duh) has not been that good looking.
+
+![img]({{site.url}}/img/12/20.png)
+
+Angles were fixed under the idea that, if the *position* of the letter along the circled section, then I can compute the angle of the vector that links both the computed position of the char ($A$) and the center of the corresponding circle ($o$):
+
+![img]({{site.url}}/img/12/22.png)
+
+The task in order to find $\theta$ involves knowing the vector from the origin $o$ to point $A$ and the vector from origin $o$ to point $B$, which we will call $\overleftarrow{a}$ and $\overleftarrow{b}$ respectively.
+
+Knowing point $A$ at this point is straightforward: we compute it by the time the letter must be rotated. Origin point $o$ is also known to be one of the four circle centers we got. But point $B$ changes depending on which circle we are on. $B$ points are the following:
+
+![img]({{site.url}}/img/12/21.png)
+
+These points are chosen not arbitrarily: they are points along the radius of the current circle that will make the computed $theta$ to be **less than 90 degrees**, since computers and calculators give out the closest angle to 0 when computing inverse trigonometric functions.
+
+Now, given that we know $o$, $A$ and $B$, we can compute the vectors $\overleftarrow{a}$ and $\overleftarrow{b}$ by:
+
+$$
+\overleftarrow{a} = \langle A_x - o_x, A_y - o_y\rangle
+$$
+
+$$
+\overleftarrow{b} = \langle B_x - o_x, B_y - o_y\rangle
+$$
+
+With these two angles we would be needing this dot product identity:
+
+$$
+\overleftarrow{a} \cdot \overleftarrow{b} = | \overleftarrow{a} | |\overleftarrow{b} | cos(\theta)
+$$
+
+where we solve for $\theta$:
+
+$$
+\theta = cos^{-1} \left( \frac{\overleftarrow{a} \cdot \overleftarrow{b}}{| \overleftarrow{a} | |\overleftarrow{b} |} \right)
+$$
+
+I computed this, but suddenly half of the computed angles where NaN! Why was this happening? If we look at the plot for the $cos^{-1}$,
+
+![img]({{site.url}}/img/12/23.png)
+
+we can see that its domain is $[-1, 1]$, which means that any value smaller than -1 and larger than 1 will be undefined by this function. So, the next problem was: how do we make this fraction
+
+$$
+\frac{\overleftarrow{a} \cdot \overleftarrow{b}}{| \overleftarrow{a} | |\overleftarrow{b} |}
+$$
+
+to be inside the range $[-1, 1]$? Well, since we know that the dot product is the length of the projection of vector $\overleftarrow{a}$ over vector $\overleftarrow{b}$ and we know that, given the two vectors are **unitary**, the maximum length of this projection would be one; then if the denominator of this fraction is one (for unitary vectors) then the dot product of two unitary vectors would be the only computation left in this fraction, which would give out maximum 1 and minimum -1. Therefore, **in order to make the argument of $cos^{-1}$ inside range [-1, 1], all vectors involved must be unitary**. 
+
+In this way, the equation can be simplified:
+
+
+If we have:
+
+$$
+\overleftarrow{a} = \langle \frac{A_x - o_x}{|\overleftarrow{a}|}, \frac{A_y - o_y}{|\overleftarrow{a}|}\rangle
+$$
+
+$$
+\overleftarrow{b} = \langle \frac{B_x - o_x}{|\overleftarrow{b}|}, \frac{B_y - o_y}{|\overleftarrow{b}|}\rangle
+$$
+
+Then we just need to compute:
+
+$$
+\theta = cos^{-1} ( \overleftarrow{a} \cdot \overleftarrow{b} )
+$$
+
+in order to get the needed separation angle between $\overleftarrow{a}$ and $\overleftarrow{b}$.
+
+But this angle is represented in c++ as:
+
+![img]({{site.url}}/img/12/24.png)
+
+which means the computed $\theta$ is a vector *tangent* to each computer $A$ point. Therefore, we must substract $\frac{\pi}{2}$ (90°) so that $\theta$ points to the normal vector of the tangent line to each point $A$.
+
+This is the final result where angles look so much more aligned to what tehy should look like:
+
+![img]({{site.url}}/img/12/20.png)
