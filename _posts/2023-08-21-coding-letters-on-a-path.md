@@ -197,7 +197,7 @@ Ever since the release of this system, the *inclination* angle for each letter i
 
 ![img]({{site.url}}/img/12/20.png)
 
-Angles were fixed under the idea that, if the *position* of the letter along the circled section, then I can compute the angle of the vector that links both the computed position of the char ($A$) and the center of the corresponding circle ($o$):
+Angles were fixed under the idea that, if the *position* of the letter along the circled section is correct, then I can compute the angle of the vector that links both the computed position of the char ($A$) and the center of the corresponding circle ($o$) with respect to a reference vector that determines the inclination, in this case $\overleftarrow{oB}$:
 
 ![img]({{site.url}}/img/12/22.png)
 
