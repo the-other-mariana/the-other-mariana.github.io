@@ -268,8 +268,8 @@ But this angle is represented in c++ as:
 
 ![img]({{site.url}}/img/12/24.png)
 
-which means the computed $\theta$ is a vector *tangent* to each computed $A$ point. Therefore, we must substract $\frac{\pi}{2}$ (90°) so that $\theta$ points to the normal vector of the tangent line to each point $A$.
+which means the computed $\theta$ is a vector *tangent* to each computed $A$ point. Therefore, we must substract $\frac{\pi}{2}$ (90°) so that $\theta$ points to the normal vector of the tangent line to each point $A$, which is the desired angle to use for the characters' inclination.
 
-This is the final result where angles look so much more aligned to what tehy should look like:
+This is the final result where angles look so much more aligned to what they should look like:
 
 ![img]({{site.url}}/img/12/20.png)
