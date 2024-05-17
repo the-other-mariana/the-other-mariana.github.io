@@ -268,7 +268,7 @@ But this angle is represented in c++ as:
 
 ![img]({{site.url}}/img/12/24.png)
 
-which means the computed $\theta$ is a vector *tangent* to each computer $A$ point. Therefore, we must substract $\frac{\pi}{2}$ (90°) so that $\theta$ points to the normal vector of the tangent line to each point $A$.
+which means the computed $\theta$ is a vector *tangent* to each computed $A$ point. Therefore, we must substract $\frac{\pi}{2}$ (90°) so that $\theta$ points to the normal vector of the tangent line to each point $A$.
 
 This is the final result where angles look so much more aligned to what tehy should look like:
 
