@@ -402,6 +402,10 @@ func singleCPU(){
 // #include <string.h>
 // #include "WrapperGPU.h"
 import "C"
+
+func batchGPU(){
+	C.WrapGenerateBatch(...)
+}
 ```
 
 Notice that in CMakeLists.txt of each project's wrapper/ folder, you must modify a few things so that the libs are also **not called the same**, such as `libwrapperCPU.so` and `libwrapperGPU.so`. In the other post is detailed on how to set the name of your .so file.
